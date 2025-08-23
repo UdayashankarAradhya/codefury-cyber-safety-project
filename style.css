@@ -1,7 +1,47 @@
+html, body {
+    height: 100%;
+}
+
 body {
-    /* Making the default font slightly larger for better readability for seniors */
+    font-family: Arial, sans-serif;
     font-size: 18px;
-    background-color: #f8f9fa; /* A light grey background */
+    background-color: #f4f7f6;
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrapper {
+    flex: 1 0 auto;
+}
+
+.footer {
+    flex-shrink: 0;
+}
+
+.navbar-dark {
+    background-color: #004a7c !important;
+}
+
+.hero-section {
+    background-color: #005b99;
+    padding: 4rem 0;
+}
+
+.card {
+    border: 1px solid #dddddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    height: 100%;
+}
+
+.btn-primary {
+    background-color: #005b99;
+    border-color: #005b99;
+}
+
+.btn-primary:hover {
+    background-color: #004a7c;
+    border-color: #004a7c;
 }
 
 .chat-window {
@@ -22,9 +62,47 @@ body {
 }
 
 .scammer {
-    background-color: #e9e9eb; /* Grey bubble, like iMessage */
+    background-color: #e9e9eb;
     color: #000;
     text-align: left;
     float: left;
     clear: both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.fade-in-card {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+.stories-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .stories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .stories-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
