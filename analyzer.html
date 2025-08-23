@@ -1,438 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Scam Analyzer - Cyber Shield</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        html, body {
-            height: 100%;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Scam Analyzer - Cyber Shield</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-            background-color: #f4f7f6;
-            color: #333333;
-            display: flex;
-            flex-direction: column;
-        }
+  <style>
+    :root{
+      --accent:#0d6efd;
+      --glass: rgba(255,255,255,0.04);
+      --card-radius:16px;
+      --text-light: #e9eef8;
+    }
+    html,body{height:100%; margin:0; font-family: Inter, system-ui, Arial; background:
+      radial-gradient(800px 400px at 10% 10%, rgba(13,110,253,0.08), transparent 10%),
+      radial-gradient(600px 300px at 90% 80%, rgba(255,183,3,0.05), transparent 12%),
+      linear-gradient(180deg,#071025 0%, #061223 55%, #071229 100%);
+      color:var(--text-light); -webkit-font-smoothing:antialiased;}
 
-        .content-wrapper {
-            flex: 1 0 auto;
-        }
+    /* Ensure every piece of text inside the analyzer is light */
+    /* Using strong selectors and !important to override Bootstrap defaults */
+    body, body * { color: var(--text-light) !important; }
+    a, a:hover, a:focus { color: #bfe3ff !important; text-decoration: none !important; }
 
-        .footer {
-            flex-shrink: 0;
-        }
+    .blob{position:absolute;border-radius:50%;filter:blur(36px);opacity:.35;mix-blend-mode:screen;pointer-events:none;z-index:0;animation:float 12s ease-in-out infinite;}
+    .blob.b1{width:420px;height:420px;left:-90px;top:-60px;background:linear-gradient(135deg,#0d6efd,#7c8cff);}
+    .blob.b2{width:320px;height:320px;right:-60px;top:40px;background:linear-gradient(135deg,#ffb703,#ff7a59);animation-duration:15s;}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-30px)}100%{transform:translateY(0)}}
 
-        .navbar-dark {
-            background-color: #004a7c !important;
-        }
+    /* navbar */
+    .navbar{background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border-radius:12px; margin:18px; padding:.5rem 1rem; box-shadow:0 10px 30px rgba(0,0,0,0.45); z-index:5;}
+    .navbar-brand{font-weight:700;color:var(--accent); display:flex; gap:.6rem; align-items:center;}
 
-        .hero-section {
-            background-color: #005b99;
-            padding: 4rem 0;
-        }
+    main{position:relative; z-index:5; padding-bottom:48px;}
+    .hero-card{max-width:960px;margin:48px auto;padding:28px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.06); box-shadow:0 10px 36px rgba(0,0,0,0.6);}
 
-        .card {
-            border: 1px solid #dddddd;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            height: 100%;
-        }
+    /* Make form controls dark background + light text */
+    textarea.form-control, input.form-control {
+      background: rgba(255,255,255,0.02) !important;
+      color: var(--text-light) !important;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.06) !important;
+    }
+    textarea::placeholder { color: rgba(233,238,248,0.45) !important; }
 
-        .btn-primary {
-            background-color: #005b99;
-            border-color: #005b99;
-        }
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#5aa0ff); border-radius:12px; border:none; font-weight:600;}
+    .sample-btn{border-radius:999px; padding:.35rem .7rem; font-size:.85rem;}
 
-        .btn-primary:hover {
-            background-color: #004a7c;
-            border-color: #004a7c;
-        }
+    .analysis-result{
+      margin-top:20px;
+      border-radius:12px;
+      padding:18px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      color: var(--text-light) !important;
+    }
+    /* Force all children inside analysis-result to be light */
+    .analysis-result, .analysis-result * { color: var(--text-light) !important; }
 
-        .analysis-result {
-            animation: fadeIn 0.5s ease-in;
-        }
+    .flag{display:inline-flex; align-items:center; gap:.6rem; padding:.45rem .6rem; border-radius:12px; font-weight:600;}
+    .flag.high{background:rgba(220,53,69,0.12); color:#ffcfcf; border-left:4px solid #dc3545;}
+    .flag.medium{background:rgba(255,193,7,0.08); color:#fff6d6; border-left:4px solid #ffc107;}
+    .flag.low{background:rgba(25,135,84,0.08); color:#dff6ea; border-left:4px solid #198754;}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .icon-circle{width:44px;height:44px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.02);box-shadow:inset 0 -6px 14px rgba(0,0,0,0.3);}
 
-        .risk-high {
-            border-left: 5px solid #dc3545;
-            background-color: #f8d7da;
-        }
+    .helpers {display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;}
+    .sample-list button{margin-right:8px; margin-bottom:8px;}
 
-        .risk-medium {
-            border-left: 5px solid #ffc107;
-            background-color: #fff3cd;
-        }
+    /* Bootstrap alerts override to appear correctly on dark background */
+    .alert { background: rgba(255,255,255,0.02) !important; border: 1px solid rgba(255,255,255,0.04) !important; color: var(--text-light) !important; }
 
-        .risk-low {
-            border-left: 5px solid #198754;
-            background-color: #d1e7dd;
-        }
-    </style>
+    /* small helper texts */
+    .lead, .form-label, small, .meta { color: rgba(233,238,248,0.85) !important; }
+
+    @media(max-width:767px){ .hero-card{padding:18px;} }
+  </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <!-- SVG Logo -->
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
-                    <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 2zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V13H5V6.3l7-3.11v9.8z" fill="#0d6efd"/>
-                </svg>
-                Cyber Shield
-            </a>
-            <div class="d-flex">
-                <a href="index.html" class="btn btn-outline-light me-2">Home</a>
-                <a href="learn.html" class="btn btn-outline-light me-2">Learn</a>
-                <a href="stories.html" class="btn btn-outline-light me-2">Stories</a>
-                <a href="simulator.html" class="btn btn-outline-light me-2">Simulator</a>
-                <a href="analyzer.html" class="btn btn-light">AI Analyzer</a>
+  <div class="blob b1" aria-hidden="true"></div>
+  <div class="blob b2" aria-hidden="true"></div>
+
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius:8px;">
+          <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#0d6efd"/><stop offset="1" stop-color="#7c8cff"/></linearGradient></defs>
+          <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 2z" fill="url(#g1)"/>
+        </svg>
+        <span>Cyber Shield</span>
+      </a>
+
+      <div class="d-flex">
+        <a href="index.html" class="btn btn-outline-light me-2">Home</a>
+        <a href="learn.html" class="btn btn-outline-light me-2">Learn</a>
+        <a href="stories.html" class="btn btn-outline-light me-2">Stories</a>
+        <a href="simulator.html" class="btn btn-outline-light me-2">Simulator</a>
+        <a href="analyzer.html" class="btn btn-light">🌟 AI Analyzer</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="hero-card text-white">
+      <div class="d-flex gap-3 flex-wrap">
+        <div style="flex:1;">
+          <h1 style="margin:0 0 .4rem 0;">AI Scam Analyzer</h1>
+          <p class="lead" style="color:rgba(233,238,248,0.85);">Paste a suspicious message and get a quick risk reading. Includes helpful actions and sample msgs to test.</p>
+
+          <div class="card" style="background:transparent; border:none; box-shadow:none; padding:0;">
+            <div class="card-body p-0">
+              <label for="messageInput" class="form-label">Paste your message</label>
+              <textarea id="messageInput" rows="5" class="form-control" placeholder="e.g., Congratulations! You've won a free prize..."></textarea>
+
+              <div class="helpers mt-3">
+                <div class="sample-list">
+                  <!-- sample message quick-fill buttons -->
+                  <button class="btn btn-outline-light sample-btn" onclick="fillSample('Congratulations! You have won a prize. Click here to claim: free-prize.xyz')">Prize scam</button>
+                  <button class="btn btn-outline-light sample-btn" onclick="fillSample('Your account will be suspended unless you verify now: fake-bank-verify.com')">Bank alert</button>
+                  <button class="btn btn-outline-light sample-btn" onclick="fillSample('We need OTP to process refund, share your OTP to confirm')">OTP request</button>
+                </div>
+                <div style="margin-left:auto; display:flex; gap:8px;">
+                  <button id="analyzeBtn" class="btn btn-primary">Analyze Message</button>
+                  <button id="clearBtn" class="btn btn-outline-light" onclick="document.getElementById('messageInput').value=''">Clear</button>
+                </div>
+              </div>
+
+              <div id="loader" class="text-center mt-3" style="display:none;">
+                <div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>
+                <div style="margin-top:8px;color:rgba(233,238,248,0.7)">Analyzing patterns...</div>
+              </div>
+
+              <div id="result" class="mt-3"></div>
             </div>
+          </div>
         </div>
-    </nav>
 
-    <!-- Main Content Wrapper -->
-    <main class="content-wrapper">
-        <div class="container my-5">
-            <div class="col-lg-8 mx-auto">
-                <h1 class="text-center">AI Scam Analyzer</h1>
-                <p class="lead text-center">Received a suspicious message? Paste it below and our AI will check it for you.</p>
-                
-                <div class="card mt-4">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="messageInput">Paste your message here:</label>
-                            <textarea class="form-control" id="messageInput" rows="5" placeholder="e.g., Congratulations! You've won a free prize..."></textarea>
-                        </div>
-                        <button id="analyzeBtn" class="btn btn-primary mt-3 w-100">Analyze Message</button>
-                    </div>
-                </div>
-
-                <!-- Loading Spinner -->
-                <div id="loader" class="text-center my-4" style="display: none;">
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                    <p>Analyzing message patterns...</p>
-                </div>
-
-                <!-- AI Result Area -->
-                <div id="result" class="mt-4"></div>
+        <!-- right-side quick tips -->
+        <div style="width:240px;">
+          <div style="border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.04);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));">
+            <div style="display:flex; gap:10px; align-items:center;">
+              <div class="icon-circle">
+                <!-- info icon -->
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zM11 10h2v6h-2v-6zm0-4h2v2h-2V6z" fill="#fff"/></svg>
+              </div>
+              <div>
+                <h6 style="margin:0">Quick tips</h6>
+                <small style="color:rgba(233,238,248,0.75)">Don't click links. Never share OTPs. Verify independently.</small>
+              </div>
             </div>
-        </div>
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer bg-dark text-white text-center py-3">
-        <div class="container">
-            <!-- Emergency Contact Information -->
-            <div class="card my-4 bg-danger text-white">
-                <div class="card-body text-center">
-                    <h3>If You've Been Scammed</h3>
-                    <p><strong>Report immediately to:</strong></p>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h5>Cyber Crime Helpline</h5>
-                            <p><strong>1930</strong></p>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>National Cyber Crime Portal</h5>
-                            <p><strong><a href="https://cybercrime.gov.in" target="_blank" class="text-white text-decoration-underline">cybercrime.gov.in</a></strong></p>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>Your Bank's Helpline</h5>
-                            <p><strong>Immediately block cards/accounts</strong></p>
-                        </div>
-                    </div>
-                </div>
+            <hr style="border-color:rgba(255,255,255,0.04); margin:12px 0;">
+            <div>
+              <small style="color:rgba(233,238,248,0.75)">Examples:</small>
+              <ul style="padding-left:18px;margin-top:6px;color:rgba(233,238,248,0.8);">
+                <li>Fake prize / lottery wins</li>
+                <li>Account verification requests with links</li>
+                <li>OTP sharing or payment requests</li>
+              </ul>
             </div>
-            <p class="mb-0">&copy; 2025 Cyber Shield. A CodeFury 8.0 Project.</p>
+          </div>
         </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const analyzeBtn = document.getElementById('analyzeBtn');
-        const messageInput = document.getElementById('messageInput');
-        const resultDiv = document.getElementById('result');
-        const loader = document.getElementById('loader');
+      </div>
+    </div>
+  </main>
 
-        // Improved scam detection patterns
-        const scamPatterns = {
-            high: [
-                // Prize/lottery scams
-                { pattern: /(congratulations|congrats).*(won|win|winner|prize)/i, description: "Fake prize/lottery claims" },
-                { pattern: /(you.*won|you've.*won|you.*win|you've.*one).*(money|prize|cash|amount)/i, description: "Fake prize/lottery claims" },
-                { pattern: /won.*(unlimited|crore|lakh|dollar|rupee)/i, description: "Fake prize/lottery claims" },
-                
-                // Urgent action with links
-                { pattern: /click.*(link|here|now)/i, description: "Suspicious link requests" },
-                { pattern: /(urgent|immediate|asap).*(click|link|action)/i, description: "Urgent action requests with suspicious links" },
-                
-                // Account threats
-                { pattern: /(verify|update).*(account|profile).*(suspend|block|deactivate)/i, description: "Account suspension threats" },
-                { pattern: /(account|card).*(blocked|suspended|frozen|expire)/i, description: "Fake account security alerts" },
-                
-                // Money requests
-                { pattern: /(send|transfer|pay).*(money|amount|rupee|cash).*(urgent|immediate|asap)/i, description: "Urgent money requests" },
-                { pattern: /(deposit|payment).*(required|needed|mandatory)/i, description: "Fake payment requests" },
-                
-                // OTP/security
-                { pattern: /(otp|pin|password|cvv).*(share|send|provide|give)/i, description: "OTP/credential sharing requests" },
-                { pattern: /share.*(otp|pin|password|code)/i, description: "OTP/credential sharing requests" },
-                
-                // Bank/financial scams
-                { pattern: /(bank|atm|card).*(block|suspend|deactivate).*(reactivate|unblock)/i, description: "Fake bank security alerts" },
-                { pattern: /(kyc|know your customer).*(update|expire|pending)/i, description: "Fake KYC update requests" },
-                
-                // Investment/job scams
-                { pattern: /(easy.*money|part.*time|work.*home).*(earn|income|salary)/i, description: "Too-good-to-be-true job offers" },
-                { pattern: /(investment|invest).*(guarantee|assured|risk.*free).*(return|profit)/i, description: "Investment scam promises" },
-                
-                // Pressure tactics
-                { pattern: /(limited.*time|offer.*expire|act.*now|today.*only)/i, description: "Pressure tactics with time limits" },
-                { pattern: /(last.*chance|final.*notice|expire.*today)/i, description: "Pressure tactics with time limits" }
-            ],
-            medium: [
-                { pattern: /free.*(gift|offer|trial)/i, description: "Free gift/offer claims" },
-                { pattern: /(update|renew).*(kyc|profile|details)/i, description: "Update requests" },
-                { pattern: /(call|contact).*(number|immediately|urgent)/i, description: "Urgent contact requests" },
-                { pattern: /download.*(app|software|file)/i, description: "App/software download requests" },
-                { pattern: /(service|subscription|plan).*(expire|end|renew)/i, description: "Service expiration claims" },
-                { pattern: /(confirm|verify).*(identity|details|information)/i, description: "Identity verification requests" }
-            ],
-            low: [
-                { pattern: /(discount|sale|offer).*(shop|store|product)/i, description: "Regular promotional content" },
-                { pattern: /(newsletter|updates|notification)/i, description: "Newsletter communications" },
-                { pattern: /(delivery|shipment|order).*(status|update)/i, description: "Legitimate delivery updates" }
-            ]
-        };
+  <footer style="position:relative; z-index:5; text-align:center; color:rgba(233,238,248,0.75); margin-top:20px;">
+    <p class="mb-0">&copy; 2025 Cyber Shield</p>
+  </footer>
 
-        const legitimatePatterns = [
-            /official.*(government|bank|company).*website/i,
-            /unsubscribe.*(here|link)/i,
-            /(customer.*service|support.*team).*(legitimate|known).*(company|brand)/i,
-            /https:\/\/[a-z0-9.-]+\.(gov|edu|org)\b/i
-        ];
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const messageInput = document.getElementById('messageInput');
+    const resultDiv = document.getElementById('result');
+    const loader = document.getElementById('loader');
 
-        analyzeBtn.addEventListener('click', analyzeMessage);
+    analyzeBtn.addEventListener('click', analyzeMessage);
 
-        function analyzeMessage() {
-            const messageText = messageInput.value.trim();
-            if (!messageText) {
-                // Replaced alert with a Bootstrap modal or an inline message for a better user experience.
-                displayModal('Input Required', 'Please enter a message to analyze.');
-                return;
-            }
+    function fillSample(text){ messageInput.value = text; }
 
-            loader.style.display = 'block';
-            resultDiv.innerHTML = '';
-            analyzeBtn.disabled = true;
+    function analyzeMessage() {
+      const text = messageInput.value.trim();
+      if(!text){ showInlineAlert('Please paste a message to analyze'); return; }
+      loader.style.display = 'block'; resultDiv.innerHTML = '';
+      analyzeBtn.disabled = true;
 
-            // Simulate AI processing delay
-            setTimeout(() => {
-                const analysis = performScamAnalysis(messageText);
-                displayResults(analysis);
-                loader.style.display = 'none';
-                analyzeBtn.disabled = false;
-            }, 2000);
-        }
+      setTimeout(()=>{
+        const analysis = performScamAnalysis(text);
+        showResult(analysis);
+        loader.style.display='none'; analyzeBtn.disabled=false;
+      }, 900);
+    }
 
-        function performScamAnalysis(message) {
-            const foundPatterns = [];
-            let score = 0;
+    /* UPDATED pattern detection logic */
+    function performScamAnalysis(message){
+      const flags = [];
+      let score = 0;
+      const lower = message.toLowerCase();
 
-            // Check for high-risk patterns
-            scamPatterns.high.forEach(item => {
-                if (item.pattern.test(message)) {
-                    foundPatterns.push({ ...item, risk: 'high' });
-                    score += 4; // Increased weight for high-risk patterns
-                }
-            });
+      // Updated rules with better scoring
+      if(/otp|pin|password|cvv|share(.*)otp/.test(lower)){ flags.push('Asks for OTP/credentials'); score+=6; }
+      if(/congrat|won|prize|reward/.test(lower)){ flags.push('Prize/lottery language'); score+=3; }
+      if(/click.*(link|here)|https?:\/\/|\.xyz|\.net|\.com/.test(lower)){ flags.push('External link / domain'); score+=3; }
+      if(/urgent|immediate|asap|expire|suspend|blocked/.test(lower)){ flags.push('Urgent / pressure language'); score+=2; }
+      if(/\d{10,}|pay.*\d+/.test(lower)){ flags.push('Phone number or payment request present'); score+=2; }
 
-            // Check for medium-risk patterns
-            scamPatterns.medium.forEach(item => {
-                if (item.pattern.test(message)) {
-                    foundPatterns.push({ ...item, risk: 'medium' });
-                    score += 2;
-                }
-            });
+      // Updated risk thresholds
+      let risk = 'Low';
+      if(score >= 5) risk = 'High';
+      else if(score >= 3) risk = 'Medium';
 
-            // Check for low-risk patterns
-            scamPatterns.low.forEach(item => {
-                if (item.pattern.test(message)) {
-                    foundPatterns.push({ ...item, risk: 'low' });
-                    score += 1;
-                }
-            });
+      return { risk, score, flags };
+    }
 
-            // Additional suspicious indicators
-            const hasPhoneNumber = /\d{10}|\+\d{11,}/.test(message);
-            const hasSuspiciousUrl = /[a-z]+\.[a-z]{2,}(?!\s|$)/.test(message) && !/https:\/\//.test(message);
-            const hasUrgentLanguage = /urgent|immediate|expire|suspend|block|asap|now|today/i.test(message);
-            const hasPoorGrammar = /you've.*one\b|recieved|loose|there\s+account|your\s+account\s+are/i.test(message);
-            const hasMoneyMention = /money|cash|amount|rupee|dollar|crore|lakh|prize|reward/i.test(message);
-            const hasClickRequest = /click|tap|press|select/i.test(message);
+    function showResult(a){
+      const riskBadge = a.risk === 'High' ? '<span class="flag high">HIGH RISK</span>' : a.risk === 'Medium' ? '<span class="flag medium">MEDIUM RISK</span>' : '<span class="flag low">LOW RISK</span>';
+      const flagsHTML = a.flags.length ? `<h6 class="mt-3">Red flags</h6><ul>${a.flags.map(f=>`<li>${f}</li>`).join('')}</ul>` : '<p>No clear red flags detected.</p>';
+      const recommendations = a.risk === 'High' ? ['Do not click links', 'Do not share OTP/password', 'Block sender & report'] : ['Verify via official channels', 'Avoid clicking links', 'When in doubt, ask someone trusted'];
 
-            // Add bonus scores for combinations of suspicious elements
-            if (hasMoneyMention && hasClickRequest) score += 3; // Money + click = very suspicious
-            if (hasUrgentLanguage && hasClickRequest) score += 2; // Urgent + click = suspicious
-            if (hasPoorGrammar && hasMoneyMention) score += 2; // Grammar + money = suspicious
-            if (hasPhoneNumber && hasUrgentLanguage) score += 2; // Phone + urgent = suspicious
-            if (hasSuspiciousUrl) score += 2; // Suspicious URL
+      resultDiv.innerHTML = `
+        <div class="analysis-result">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>${riskBadge} <small style="color:rgba(233,238,248,0.7); margin-left:8px;">Score: ${a.score}</small></div>
+            <div>
+              <button class="btn btn-sm btn-outline-light" onclick="copyText()">Copy Message</button>
+              <button class="btn btn-sm btn-primary" onclick="reportSample()">Report</button>
+            </div>
+          </div>
+          ${flagsHTML}
+          <h6 class="mt-2">What to do</h6>
+          <ul>${recommendations.map(r=>`<li>${r}</li>`).join('')}</ul>
+        </div>
+      `;
+    }
 
-            // Check for legitimate indicators
-            const hasLegitimateMarkers = legitimatePatterns.some(pattern => pattern.test(message));
-            if (hasLegitimateMarkers) {
-                score = Math.max(0, score - 3);
-            }
+    function showInlineAlert(text){
+      resultDiv.innerHTML = `<div class="alert alert-warning">${text}</div>`;
+      setTimeout(()=>{ resultDiv.innerHTML = ''; }, 2000);
+    }
 
-            // Determine overall risk level with improved thresholds
-            let riskLevel = 'low';
-            if (score >= 6) {
-                riskLevel = 'high';
-            } else if (score >= 3) {
-                riskLevel = 'medium';
-            }
-
-            return {
-                riskLevel,
-                score,
-                foundPatterns,
-                hasPhoneNumber,
-                hasSuspiciousUrl,
-                hasUrgentLanguage,
-                hasPoorGrammar,
-                hasMoneyMention,
-                hasClickRequest,
-                hasLegitimateMarkers
-            };
-        }
-
-        function displayResults(analysis) {
-            const { riskLevel, foundPatterns, hasPhoneNumber, hasSuspiciousUrl, hasUrgentLanguage, hasPoorGrammar, hasMoneyMention, hasClickRequest, score } = analysis;
-            
-            let verdict, verdictClass, recommendations;
-
-            switch (riskLevel) {
-                case 'high':
-                    verdict = "HIGH RISK - Likely a Scam";
-                    verdictClass = "risk-high";
-                    recommendations = [
-                        "DO NOT click any links or download attachments",
-                        "DO NOT share personal information, OTPs, or passwords",
-                        "DO NOT send money or make any payments",
-                        "Block the sender and delete the message immediately",
-                        "If money was involved, report to cybercrime.gov.in and call 1930",
-                        "Contact your bank if you shared any financial details"
-                    ];
-                    break;
-                case 'medium':
-                    verdict = "MEDIUM RISK - Be Very Cautious";
-                    verdictClass = "risk-medium";
-                    recommendations = [
-                        "Verify independently through official channels only",
-                        "Don't trust the message at face value",
-                        "Be cautious of any requests for personal information",
-                        "When in doubt, ask someone you trust",
-                        "Don't feel pressured to act immediately"
-                    ];
-                    break;
-                default:
-                    verdict = "LOW RISK - Appears Safe";
-                    verdictClass = "risk-low";
-                    recommendations = [
-                        "Message appears to be legitimate",
-                        "Still verify through official channels if unsure",
-                        "Trust your instincts if something feels off",
-                        "Stay educated about new scam patterns"
-                    ];
-            }
-
-            let redFlags = [];
-            foundPatterns.forEach(pattern => {
-                redFlags.push(`${pattern.description} detected`);
-            });
-
-            // Add specific red flags for the additional checks
-            if (hasPhoneNumber) redFlags.push("Contains phone number (verify authenticity)");
-            if (hasSuspiciousUrl) redFlags.push("Contains suspicious or unencrypted URL");
-            if (hasUrgentLanguage) redFlags.push("Uses urgent/pressure language");
-            if (hasPoorGrammar && riskLevel !== 'low') redFlags.push("Contains grammar/spelling errors typical of scams");
-            if (hasMoneyMention && hasClickRequest) redFlags.push("Combines money offers with click requests (major red flag)");
-
-            const resultHTML = `
-                <div class="card analysis-result ${verdictClass}">
-                    <div class="card-body">
-                        <h3>${verdict}</h3>
-                        <p><small>Risk Score: ${score}/10+</small></p>
-                        
-                        ${redFlags.length > 0 ? `
-                            <h5 class="mt-3">Warning Signs Detected:</h5>
-                            <ul>
-                                ${redFlags.map(flag => `<li>${flag}</li>`).join('')}
-                            </ul>
-                        ` : '<p class="mt-3">No major warning signs detected.</p>'}
-                        
-                        <h5 class="mt-3">What You Should Do:</h5>
-                        <ul>
-                            ${recommendations.map(rec => `<li>${rec}</li>`).join('')}
-                        </ul>
-                        
-                        ${riskLevel === 'high' ? `
-                            <div class="alert alert-danger mt-3">
-                                <strong>URGENT:</strong> This message shows multiple signs of being a scam. Do not interact with it in any way. Scammers often target people with fake prize/money offers to steal personal information or money.
-                            </div>
-                        ` : `
-                            <div class="alert alert-info mt-3">
-                                <strong>Remember:</strong> Legitimate companies and banks will never ask for sensitive information via SMS or WhatsApp. When in doubt, always verify through official channels.
-                            </div>
-                        `}
-                    </div>
-                </div>
-            `;
-
-            resultDiv.innerHTML = resultHTML;
-        }
-
-        // Function to display a Bootstrap modal
-        function displayModal(title, message) {
-            // Check if a modal already exists and remove it
-            const existingModal = document.getElementById('alertModal');
-            if (existingModal) {
-                existingModal.remove();
-            }
-
-            const modalHTML = `
-                <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="alertModalLabel">${title}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        ${message}
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            `;
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
-            const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
-            alertModal.show();
-        }
-    </script>
+    function copyText(){
+      // Using document.execCommand for broader compatibility in iFrames
+      const el = document.createElement('textarea');
+      el.value = messageInput.value;
+      document.body.appendChild(el);
+      el.select();
+      try {
+        document.execCommand('copy');
+        showInlineAlert('Message copied to clipboard');
+      } catch (err) {
+        showInlineAlert('Copy failed');
+      }
+      document.body.removeChild(el);
+    }
+    function reportSample(){ 
+        showInlineAlert('Redirecting to National Cyber Crime Portal...');
+        setTimeout(() => {
+            window.open('https://cybercrime.gov.in', '_blank');
+        }, 1500);
+    }
+  </script>
 </body>
 </html>

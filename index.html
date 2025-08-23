@@ -1,71 +1,452 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Shield - Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cyber Shield - Home</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Extra UI fonts (optional but nicer) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent: #0d6efd;
+      --accent-2: #ffb703;
+      --glass-bg: rgba(255,255,255,0.06);
+      --card-radius: 18px;
+      --soft-shadow: 0 10px 30px rgba(8,10,20,0.35);
+      --glass-border: rgba(255,255,255,0.08);
+      --muted: rgba(255,255,255,0.75);
+    }
+
+    html,body{
+      height:100%;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(13,110,253,0.12), transparent 10%),
+                  radial-gradient(1000px 500px at 90% 90%, rgba(255,183,3,0.06), transparent 12%),
+                  linear-gradient(180deg,#071025 0%, #061223 55%, #071229 100%);
+      color: #e9eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding-bottom:48px;
+    }
+
+    /* Animated floating blobs */
+    .blob{
+      position: absolute;
+      filter: blur(36px) saturate(1.2);
+      opacity: .35;
+      border-radius: 50%;
+      transform: translate3d(0,0,0);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index:0;
+      animation: floatY 10s ease-in-out infinite;
+    }
+    .blob.blob-1{ width:420px; height:420px; left:-80px; top:-80px; background: linear-gradient(135deg,#0d6efd,#7c8cff);}
+    .blob.blob-2{ width:300px; height:300px; right:-60px; top:40px; background: linear-gradient(135deg,#ffb703,#ff7a59); animation-duration:14s;}
+    .blob.blob-3{ width:220px; height:220px; left:20%; bottom:-100px; background: linear-gradient(135deg,#9be7ff,#7cc6ff); animation-duration:12s; opacity:.25;}
+
+    @keyframes floatY{
+      0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+      50%{ transform: translateY(-30px) translateX(8px) rotate(6deg); }
+      100%{ transform: translateY(0px) translateX(0px) rotate(0deg); }
+    }
+
+    /* Nav */
+    .navbar {
+      background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      backdrop-filter: blur(6px);
+      border-radius: 14px;
+      margin: 18px;
+      padding: .45rem 1rem;
+      box-shadow: var(--soft-shadow);
+      z-index: 10;
+    }
+    .navbar-brand { font-weight:700; color:var(--accent); display:flex; gap:.5rem; align-items:center;}
+    .navbar .btn { border-radius: 12px; }
+    .navbar .btn-outline-light { border-color: rgba(255,255,255,0.12); }
+
+    /* Hero */
+    .content-wrapper { position: relative; z-index: 5; }
+    .hero-section{
+      padding: 80px 0;
+      position: relative;
+      z-index:5;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius: 18px;
+      padding: 36px;
+      box-shadow: var(--soft-shadow);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(6px);
+      display: inline-block;
+      max-width: 920px;
+      text-align: left;
+    }
+    .hero-title { font-size: clamp(1.75rem, 3.4vw, 2.6rem); font-weight:800; color: white; margin-bottom:.4rem;}
+    .hero-lead { color: rgba(233,238,248,0.85); margin-bottom:1rem; }
+
+    .hero-buttons .btn { border-radius: 12px; padding: .6rem 1.15rem; font-weight:600; }
+
+    /* Feature cards */
+    .features{
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 18px;
+    }
+    .feature-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--card-radius);
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: transform .25s ease, box-shadow .25s ease;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.40);
+      cursor: pointer;
+    }
+    .feature-card:hover{ transform: translateY(-8px); box-shadow: 0 18px 40px rgba(2,6,23,0.48); }
+
+    .feature-icon{
+      width:64px; height:64px; display:flex; align-items:center; justify-content:center;
+      border-radius: 14px; background: rgba(255,255,255,0.03); margin-right:12px;
+      box-shadow: inset 0 -6px 16px rgba(0,0,0,0.25);
+    }
+    .feature-flex { display:flex; align-items:center; gap: .6rem; }
+
+    /* Rounded footer card */
+    .footer .card { border-radius: 14px; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 12px 36px rgba(0,0,0,0.6); }
+
+    /* Small helpers */
+    .rounded-icon svg { border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:10px; box-shadow: 0 6px 16px rgba(2,6,23,0.5); }
+    a.btn-primary { background: linear-gradient(90deg,var(--accent), #5aa0ff); border: none; }
+    a.btn-warning { background: linear-gradient(90deg,#ffb703,#ff8a5b); border: none; color:#081428; }
+
+    .lead-quiet { color: rgba(233,238,248,0.68); }
+
+    /* Modal styling */
+    .feature-modal .modal-content{
+      background: linear-gradient(180deg, rgba(8,10,20,0.8), rgba(8,10,20,0.75));
+      color: #e9eef8;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    /* Responsiveness tweaks */
+    @media (max-width:767px){
+      .navbar { margin: 12px; padding:.5rem; }
+      .hero-card { padding: 20px; }
+      .hero-section { padding: 40px 0; }
+    }
+  </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
-                    <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 2zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V13H5V6.3l7-3.11v9.8z" fill="#0d6efd"/>
-                </svg>
-                Cyber Shield
-            </a>
-            <div class="d-flex">
-                <a href="index.html" class="btn btn-light me-2">Home</a>
-                <a href="learn.html" class="btn btn-outline-light me-2">Learn</a>
-                <a href="stories.html" class="btn btn-outline-light me-2">Stories</a>
-                <a href="simulator.html" class="btn btn-outline-light me-2">Simulator</a>
-                <a href="analyzer.html" class="btn btn-outline-light">AI Analyzer</a>
-            </div>
-        </div>
-    </nav>
+  <!-- decorative blobs -->
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+  <div class="blob blob-3" aria-hidden="true"></div>
 
-    <main class="content-wrapper">
-        <div class="hero-section text-center text-white py-5">
-            <div class="container">
-                <h1 class="display-4">Welcome to Cyber Shield</h1>
-                <p class="lead">Your simple and friendly guide to staying safe online. We are here to help you understand and avoid common online scams.</p>
-                <hr class="my-4 bg-white">
-                <p>Get personalized tips, read real stories, or analyze suspicious messages with our AI tool.</p>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <!-- rounded svg icon -->
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius:8px;">
+          <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 2z" fill="url(#g)"/>
+          <defs>
+            <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#0d6efd"/>
+              <stop offset="1" stop-color="#7c8cff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span style="margin-left:8px;">Cyber Shield</span>
+      </a>
+
+      <div class="d-flex">
+        <a href="index.html" class="btn btn-light me-2">Home</a>
+        <a href="learn.html" class="btn btn-outline-light me-2">Learn</a>
+        <a href="stories.html" class="btn btn-outline-light me-2">Stories</a>
+        <a href="simulator.html" class="btn btn-outline-light me-2">Simulator</a>
+        <a href="analyzer.html" class="btn btn-outline-light">AI Analyzer</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="content-wrapper">
+    <div class="hero-section text-center">
+      <div class="container d-flex justify-content-center">
+        <div class="hero-card text-white">
+          <div class="d-flex align-items-start gap-3">
+            <div style="flex:1;">
+              <h1 class="hero-title">Welcome to Cyber Shield</h1>
+              <p class="hero-lead lead-quiet">Your friendly guide to staying safe online — quick tips, real stories and free AI-powered analysis to spot scams and suspicious messages.</p>
+
+              <div class="d-flex gap-2 hero-buttons" style="flex-wrap:wrap;">
                 <a class="btn btn-primary btn-lg" href="learn.html" role="button">Start Learning</a>
                 <a class="btn btn-warning btn-lg" href="analyzer.html" role="button">Try the AI Analyzer</a>
-            </div>
-        </div>
-    </main>
+                <a class="btn btn-outline-light btn-lg" href="stories.html" role="button">Read Stories</a>
+              </div>
 
-    <footer class="footer bg-dark text-white text-center py-3">
-        <div class="container">
-            <div class="card my-4 bg-danger text-white">
-                <div class="card-body text-center">
-                    <h3>If You've Been Scammed</h3>
-                    <p><strong>Report immediately to:</strong></p>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h5>Cyber Crime Helpline</h5>
-                            <p><strong>1930</strong></p>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>National Cyber Crime Portal</h5>
-                            <p><strong><a href="https://cybercrime.gov.in" target="_blank" class="text-white text-decoration-underline">cybercrime.gov.in</a></strong></p>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>Your Bank's Helpline</h5>
-                            <p><strong>Immediately block cards/accounts</strong></p>
-                        </div>
+              <div class="features mt-4">
+                <!-- Feature card: Guides & Lessons -->
+                <div class="feature-card" role="button" tabindex="0"
+                     data-title="Guides & Lessons"
+                     data-desc="Short, practical lessons for everyone — phishing, UPI scams, OTP safety, and real recovery checklists."
+                     data-ex="Example: 'Your account is blocked. Click here to verify.' — a phishing pattern."
+                     data-sample="Your account has been blocked. Click here to verify: fake-bank-verify.com"
+                     data-cta="learn.html">
+                  <div class="feature-flex">
+                    <div class="feature-icon rounded-icon" title="Guides & Lessons">
+                      <!-- shield icon -->
+                      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 2z" fill="#0d6efd"/>
+                      </svg>
                     </div>
+                    <div>
+                      <h5 style="margin:0;">Guides & Lessons</h5>
+                      <small class="lead-quiet">Short, practical lessons for everyone.</small>
+                    </div>
+                  </div>
                 </div>
-            </div>
-            <p class="mb-0">&copy; 2025 Cyber Shield. A CodeFury 8.0 Project.</p>
-        </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                <!-- Feature card: AI Analyzer -->
+                <div class="feature-card" role="button" tabindex="0"
+                     data-title="AI Analyzer"
+                     data-desc="Paste suspicious messages and get an instant risk score, red flags, and recommended next steps."
+                     data-ex="Example: 'Congratulations! You have won a prize...' — high risk if links/OTP requests included."
+                     data-sample="Congratulations! You have won a prize. Click here to claim: free-prize.xyz"
+                     data-cta="analyzer.html">
+                  <div class="feature-flex">
+                    <div class="feature-icon rounded-icon" title="AI Analyzer">
+                      <!-- chat icon -->
+                      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" fill="#7c8cff"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h5 style="margin:0;">AI Analyzer</h5>
+                      <small class="lead-quiet">Paste a message and get scam risk analysis.</small>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Feature card: Real Stories -->
+                <div class="feature-card" role="button" tabindex="0"
+                     data-title="Real Stories"
+                     data-desc="True scam incidents: what happened, how victims were targeted, and lessons learned."
+                     data-ex="Example: Installer link disguised as a bank app that steals credentials."
+                     data-sample="I received a KYC link asking to verify my account; installed app and lost access."
+                     data-cta="stories.html">
+                  <div class="feature-flex">
+                    <div class="feature-icon rounded-icon" title="Real Stories">
+                      <!-- book icon -->
+                      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 5a2 2 0 0 1 2-2h12v14H5a2 2 0 0 1-2-2V5z" fill="#ffb703"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h5 style="margin:0;">Real Stories</h5>
+                      <small class="lead-quiet">Learn from real scam incidents and recovery tips.</small>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Feature card: Simulator -->
+                <div class="feature-card" role="button" tabindex="0"
+                     data-title="Simulator"
+                     data-desc="Interactive scenarios to practice spotting scam messages and choosing the right response."
+                     data-ex="Example scenario: 'Relative needs money urgently' — practice verifying before sending."
+                     data-sample="Your relative needs ₹5000 urgently. Transfer now to avoid hospital charges."
+                     data-cta="simulator.html">
+                  <div class="feature-flex">
+                    <div class="feature-icon rounded-icon" title="Simulator">
+                      <!-- wrench icon -->
+                      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 7l-5.5 5.5a4 4 0 1 1-1.5-1.5L19.5 5l1.5 2z" fill="#7cc6ff"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h5 style="margin:0;">Simulator</h5>
+                      <small class="lead-quiet">Practice spotting red flags safely.</small>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- small visual / badge card -->
+            <div style="width:220px; margin-left:18px;">
+              <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:16px; border-radius:14px; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 10px 30px rgba(0,0,0,0.55);">
+                <h6 style="margin:0 0 .5rem 0;">Quick stats</h6>
+                <div style="display:flex; gap:.6rem; align-items:center;">
+                  <div style="width:56px; height:56px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:rgba(13,110,253,0.12); font-weight:700;">24</div>
+                  <div>
+                    <small class="lead-quiet">Scam types explained</small><br>
+                    <small style="font-weight:700;">Beginner friendly</small>
+                  </div>
+                </div>
+                <hr style="border-color: rgba(255,255,255,0.04); margin:.9rem 0;">
+                <p style="font-size:.85rem; margin:0;" class="lead-quiet">Tip: Click any card to see examples, copy a sample, or jump to the tool.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- optional additional content area -->
+    <div class="container mt-5">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="p-4" style="border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); box-shadow: var(--soft-shadow);">
+            <h5>How to report</h5>
+            <p class="lead-quiet">If you suspect fraud, block the contact, document messages and report right away to the Cyber Crime Helpline or your bank.</p>
+            <a class="btn btn-outline-light" href="https://cybercrime.gov.in" target="_blank">Visit portal</a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="p-4" style="border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); box-shadow: var(--soft-shadow);">
+            <h5>Need immediate help?</h5>
+            <p class="lead-quiet">Contact your bank's helpline and file a complaint. Keep transaction IDs and screenshots ready.</p>
+            <a class="btn btn-primary" href="#">Get help</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Feature modal (single reusable modal filled dynamically) -->
+  <div class="modal fade feature-modal" id="featureModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content p-3">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="featureModalLabel">Feature</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="featureDesc" class="lead-quiet"></p>
+
+          <div class="mb-3">
+            <h6>Red-flag example</h6>
+            <pre id="featureExample" style="background:rgba(0,0,0,0.12); padding:12px; border-radius:8px; overflow:auto;"></pre>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button id="copySampleBtn" class="btn btn-outline-light">Copy Sample</button>
+            <a id="openToolBtn" class="btn btn-primary" href="#">Open tool</a>
+            <a id="learnMoreBtn" class="btn btn-outline-light" href="#">Learn more</a>
+            <div id="copyFeedback" style="margin-left:auto; color:rgba(233,238,248,0.75); align-self:center;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer text-white text-center py-4" style="position:relative; z-index:5; margin-top:48px;">
+    <div class="container">
+      <div class="card my-4 bg-danger text-white">
+        <div class="card-body text-center">
+          <h3 style="margin-bottom:.5rem;">If You've Been Scammed</h3>
+          <p><strong>Report immediately to:</strong></p>
+          <div class="row">
+            <div class="col-md-4">
+              <h5>Cyber Crime Helpline</h5>
+              <p><strong>1930</strong></p>
+            </div>
+            <div class="col-md-4">
+              <h5>National Cyber Crime Portal</h5>
+              <p><strong><a href="https://cybercrime.gov.in" target="_blank" class="text-white text-decoration-underline">cybercrime.gov.in</a></strong></p>
+            </div>
+            <div class="col-md-4">
+              <h5>Your Bank's Helpline</h5>
+              <p><strong>Immediately block cards/accounts</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="mb-0">&copy; 2025 Cyber Shield. A CodeFury 8.0 Project.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Enable Bootstrap tooltips
+    document.addEventListener('DOMContentLoaded', () => {
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+      tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el, {trigger:'hover'}));
+
+      // Attach click handlers to feature cards
+      document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('click', () => openFeatureModal(card));
+        card.addEventListener('keypress', (e) => { if(e.key === 'Enter' || e.key === ' ') { openFeatureModal(card); }});
+      });
+    });
+
+    const featureModalEl = document.getElementById('featureModal');
+    const featureModal = new bootstrap.Modal(featureModalEl, { keyboard: true });
+    const fTitle = document.getElementById('featureModalLabel');
+    const fDesc = document.getElementById('featureDesc');
+    const fExample = document.getElementById('featureExample');
+    const copyBtn = document.getElementById('copySampleBtn');
+    const openToolBtn = document.getElementById('openToolBtn');
+    const learnMoreBtn = document.getElementById('learnMoreBtn');
+    const copyFeedback = document.getElementById('copyFeedback');
+
+    let currentSampleText = '';
+
+    function openFeatureModal(card){
+      // read data attributes
+      const title = card.dataset.title || 'Feature';
+      const desc = card.dataset.desc || '';
+      const example = card.dataset.ex || '';
+      const sample = card.dataset.sample || '';
+      const cta = card.dataset.cta || 'learn.html';
+
+      fTitle.textContent = title;
+      fDesc.textContent = desc;
+      fExample.textContent = example;
+      currentSampleText = sample;
+
+      // configure CTA buttons
+      openToolBtn.href = cta;
+      learnMoreBtn.href = cta;
+
+      // visible helpful label for "open" depending on CTA
+      openToolBtn.textContent = cta.includes('analyzer') ? 'Open Analyzer' : cta.includes('simulator') ? 'Open Simulator' : 'Open';
+      learnMoreBtn.textContent = 'Learn more';
+
+      copyFeedback.textContent = '';
+
+      featureModal.show();
+    }
+
+    copyBtn.addEventListener('click', () => {
+      if(!currentSampleText) {
+        copyFeedback.textContent = 'No sample available to copy.';
+        return;
+      }
+      navigator.clipboard.writeText(currentSampleText).then(() => {
+        copyFeedback.textContent = 'Sample copied — open Analyzer and paste to test.';
+        copyFeedback.style.color = '#bfe3ff';
+        // brief highlight
+        setTimeout(()=> copyFeedback.textContent = '', 3500);
+      }).catch(() => {
+        copyFeedback.textContent = 'Copy failed — you can manually select the example.';
+        copyFeedback.style.color = '#ffcfcf';
+      });
+    });
+
+    // Accessibility: close modal on Escape (bootstrap does this), ensure focus returns etc handled by bootstrap
+  </script>
 </body>
 </html>

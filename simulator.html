@@ -1,184 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scam Simulator - Cyber Shield</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Scam Simulator - Cyber Shield</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root{--accent:#0d6efd;}
+    html,body{height:100%;margin:0;font-family:Inter,Arial;background:
+      radial-gradient(800px 300px at 10% 10%, rgba(13,110,253,0.06), transparent),
+      linear-gradient(180deg,#071025,#061223); color:#e9eef8;}
+    .blob{position:absolute;border-radius:50%;filter:blur(36px);opacity:.28;mix-blend-mode:screen;pointer-events:none;z-index:0;}
+    .blob.s1{width:400px;height:400px;left:-80px;top:-90px;background:linear-gradient(135deg,#0d6efd,#7c8cff);}
+    nav{background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); margin:18px; border-radius:12px; padding:.5rem 1rem; box-shadow:0 10px 30px rgba(0,0,0,0.45); z-index:5;}
+    main{position:relative; z-index:5; padding:48px 0;}
+    .sim-card{max-width:900px;margin:0 auto;padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,0.04); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); box-shadow:0 10px 30px rgba(0,0,0,0.6);}
+    .message{padding:12px 14px;border-radius:14px;max-width:84%;margin:10px 0;display:inline-block;}
+    .scammer{background:linear-gradient(180deg, rgba(255,90,90,0.12), rgba(255,90,90,0.06)); border:1px solid rgba(255,80,80,0.12); color:#ffdede; align-self:flex-start;}
+    .user{background:linear-gradient(180deg, rgba(13,110,253,0.12), rgba(13,110,253,0.06)); border:1px solid rgba(13,110,253,0.12); color:#e6f1ff; align-self:flex-end;}
+    .options .btn{border-radius:999px;}
+    .avatar{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.02);display:inline-flex;align-items:center;justify-content:center;margin-right:8px;}
+  </style>
 </head>
 <body>
+  <div class="blob s1" aria-hidden="true"></div>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <!-- SVG Logo -->
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
-                    <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 2zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V13H5V6.3l7-3.11v9.8z" fill="#0d6efd"/>
-                </svg>
-                Cyber Shield
-            </a>
-            <div class="d-flex">
-                <a href="index.html" class="btn btn-outline-light me-2">Home</a>
-                <a href="learn.html" class="btn btn-outline-light me-2">Learn</a>
-                <a href="stories.html" class="btn btn-outline-light me-2">Stories</a>
-                <a href="simulator.html" class="btn btn-light me-2">Simulator</a>
-                <a href="analyzer.html" class="btn btn-outline-light">AI Analyzer</a>
-            </div>
+  <nav class="navbar navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <svg width="34" height="34" viewBox="0 0 24 24"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 2z" fill="#0d6efd"/></svg>
+        Cyber Shield
+      </a>
+      <div class="d-flex">
+        <a href="index.html" class="btn btn-outline-light me-2">Home</a>
+        <a href="learn.html" class="btn btn-outline-light me-2">Learn</a>
+        <a href="stories.html" class="btn btn-outline-light me-2">Stories</a>
+        <a href="simulator.html" class="btn btn-light me-2">Simulator</a>
+        <a href="analyzer.html" class="btn btn-outline-light">AI Analyzer</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="sim-card">
+      <div class="d-flex align-items-start gap-3 mb-2">
+        <div class="avatar"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2a5 5 0 110 10 5 5 0 010-10zM3 20a9 9 0 0118 0H3z" fill="#fff"/></svg></div>
+        <div>
+          <h3 style="margin:0;">Can You Spot the Scam?</h3>
+          <small style="color:rgba(233,238,248,0.75)">Read the message, choose the best response and get instant feedback.</small>
         </div>
-    </nav>
+      </div>
 
-    <!-- Main Content -->
-    <main class="content-wrapper">
-        <div class="container my-5">
-            <div class="col-lg-8 mx-auto text-center">
-                <h1>Can You Spot the Scam?</h1>
-                <p class="lead">You receive the following message. How do you respond?</p>
-                
-                <div class="chat-window mt-4">
-                    <div id="scam-message" class="message scammer"></div>
-                    <div id="user-options" class="mt-4"></div>
-                    <div id="feedback" class="mt-4"></div>
-                </div>
+      <div id="chat" style="display:flex; flex-direction:column; min-height:180px; padding:10px; border-radius:12px; background:rgba(0,0,0,0.08);">
+        <div id="scam-message" class="message scammer"></div>
+      </div>
 
-                <button id="next-scenario" class="btn btn-primary mt-3" style="display: none;" onclick="loadRandomCase()">Try Another Scenario</button>
-            </div>
-        </div>
-    </main>
+      <div id="user-options" class="options mt-3 d-flex flex-wrap"></div>
 
-    <!-- Footer -->
-    <footer class="footer bg-dark text-white text-center py-3">
-        <div class="container">
-            <!-- Emergency Contact Information -->
-            <div class="card my-4 bg-danger text-white">
-                <div class="card-body text-center">
-                    <h3>If You've Been Scammed</h3>
-                    <p><strong>Report immediately to:</strong></p>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h5>Cyber Crime Helpline</h5>
-                            <p><strong>1930</strong></p>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>National Cyber Crime Portal</h5>
-                            <p><strong><a href="https://cybercrime.gov.in" target="_blank" class="text-white text-decoration-underline">cybercrime.gov.in</a></strong></p>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>Your Bank's Helpline</h5>
-                            <p><strong>Immediately block cards/accounts</strong></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p class="mb-0">&copy; 2025 Cyber Shield. A CodeFury 8.0 Project.</p>
-        </div>
-    </footer>
+      <div id="feedback" class="mt-3"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const cases = [
-            {
-                message: "Hello, this is from your bank. Your UPI has been blocked due to a security issue. To reactivate, please click this link immediately: fake-bank-reactivate.xyz",
-                options: [
-                    { text: "Click the Link", result: "wrong", feedback: "Incorrect! Banks never send links via SMS or WhatsApp to unblock accounts. Always contact them through their official app or helpline." },
-                    { text: "Ignore & Delete Message", result: "correct", feedback: "Correct! This is a classic phishing attempt. You rightly ignored the suspicious link." }
-                ]
-            },
-            {
-                message: "Congratulations! You’ve won a free iPhone. Claim your prize now by entering your details at free-iphone-prize.net",
-                options: [
-                    { text: "Enter Details", result: "wrong", feedback: "Incorrect! Unsolicited prize notifications are almost always scams designed to steal your personal information." },
-                    { text: "Ignore & Report as Spam", result: "correct", feedback: "Correct! If it sounds too good to be true, it probably is. You can't win a lottery you didn't enter." }
-                ]
-            },
-            {
-                message: "This is the Income Tax Department. Your PAN card will be deactivated unless you verify it at secure-pan-verify.org",
-                options: [
-                    { text: "Click Verify Link", result: "wrong", feedback: "Incorrect! Government agencies do not send such critical alerts via SMS with unofficial links. Always use their official websites." },
-                    { text: "Do Not Respond & Check Govt Website", result: "correct", feedback: "Correct! The safest action is to visit the official income tax portal directly to check for any alerts." }
-                ]
-            },
-            {
-                message: "Your relative is in urgent need of money, please transfer ₹5000 immediately to this account for hospital expenses.",
-                options: [
-                    { text: "Send Money Immediately", result: "wrong", feedback: "Incorrect! Scammers create a false sense of urgency. You should always verify such requests first." },
-                    { text: "Call Relative Directly & Verify", result: "correct", feedback: "Correct! The best way to handle an emergency request is to contact the person directly on their known number to confirm." }
-                ]
-            },
-            {
-                message: "Amazon: Your package cannot be delivered until you confirm your address at amazon-delivery-fix.co",
-                options: [
-                    { text: "Confirm Address via Link", result: "wrong", feedback: "Incorrect! The link is fake. Amazon and other delivery services manage all tracking and address issues within their official app or website." },
-                    { text: "Ignore & Check Amazon App", result: "correct", feedback: "Correct! Always check the order status on the official app or website, never through a link in an SMS." }
-                ]
-            },
-            {
-                message: "Netflix: Your subscription has expired. Renew now at netflix-renew-payments.com to avoid suspension.",
-                options: [
-                    { text: "Renew Subscription via Link", result: "wrong", feedback: "Incorrect! This is a phishing link designed to steal your payment details. Never update payment info through links in messages." },
-                    { text: "Renew Only via Official Netflix Website/App", result: "correct", feedback: "Correct! Always manage your subscriptions directly on the service's official platform." }
-                ]
-            },
-            {
-                message: "WhatsApp Security: Your account will be blocked unless you verify immediately here: whatsapp-secure-login.net",
-                options: [
-                    { text: "Click Verify Link", result: "wrong", feedback: "Incorrect! WhatsApp will never ask you to verify your account through a link in a message." },
-                    { text: "Ignore & Enable 2FA from WhatsApp Settings", result: "correct", feedback: "Correct! The best way to secure your account is by using the official security features like Two-Factor Authentication (2FA)." }
-                ]
-            }
-        ];
+      <div class="text-end mt-3">
+        <button id="next-scenario" class="btn btn-outline-light" style="display:none;" onclick="loadRandomCase()">Try Another</button>
+      </div>
+    </div>
+  </main>
 
-        let recentCases = [];
-        let currentCase = {};
+  <footer style="position:relative;z-index:5;text-align:center;color:rgba(233,238,248,0.7);padding:12px 0;">&copy; 2025 Cyber Shield</footer>
 
-        function loadRandomCase() {
-            let availableCases = cases.filter((_, index) => !recentCases.includes(index));
+  <script>
+    const cases = [
+      {
+        message: "Hello, this is your bank. Your UPI has been blocked. Reactivate immediately at fake-bank-reactivate.xyz",
+        options:[
+          {text:"Click the link", result:"wrong", feedback:"Banks will not ask you to reactivate via random links. Use official app or helpline."},
+          {text:"Ignore & Delete", result:"correct", feedback:"Good — ignore and verify using official channels."}
+        ]
+      },
+      {
+        message: "Congratulations! You've won a free iPhone. Claim here: free-iphone-prize.net",
+        options:[
+          {text:"Enter details", result:"wrong", feedback:"Unsolicited prize messages are scams — never provide your details."},
+          {text:"Report & Ignore", result:"correct", feedback:"Correct — report as spam and ignore."}
+        ]
+      },
+      {
+        message: "Your relative needs ₹5000 urgently. Transfer now to avoid hospital charges.",
+        options:[
+          {text:"Send money immediately", result:"wrong", feedback:"Always verify by calling the relative on a known number."},
+          {text:"Call relative & verify", result:"correct", feedback:"Correct — verify before sending money."}
+        ]
+      }
+    ];
 
-            if (availableCases.length === 0) {
-                recentCases = []; // reset history after showing all cases
-                availableCases = [...cases];
-            }
+    let recentCases = [];
+    let currentCase = {};
 
-            const randomIndex = Math.floor(Math.random() * availableCases.length);
-            currentCase = availableCases[randomIndex];
-            const caseIndex = cases.indexOf(currentCase);
+    function loadRandomCase(){
+      let available = cases.filter((_,i)=> !recentCases.includes(i));
+      if(available.length === 0){ recentCases = []; available = cases; }
+      const idxAll = Math.floor(Math.random()*available.length);
+      currentCase = available[idxAll];
+      const countIndex = cases.indexOf(currentCase);
+      recentCases.push(countIndex);
+      if(recentCases.length>5) recentCases.shift();
 
-            recentCases.push(caseIndex);
-            if (recentCases.length > 5) recentCases.shift();
+      document.getElementById('scam-message').innerText = currentCase.message;
+      const opts = document.getElementById('user-options');
+      opts.innerHTML = '';
+      currentCase.options.forEach(opt => {
+        const b = document.createElement('button');
+        b.className = 'btn btn-outline-light m-2';
+        b.innerText = opt.text;
+        b.onclick = ()=> chooseOption(opt);
+        opts.appendChild(b);
+      });
+      document.getElementById('feedback').innerHTML = '';
+      document.getElementById('next-scenario').style.display = 'none';
+    }
 
-            document.getElementById("scam-message").innerText = currentCase.message;
+    function chooseOption(opt){
+      const fb = document.getElementById('feedback');
+      const alertClass = opt.result === 'correct' ? 'success' : 'danger';
+      const title = opt.result === 'correct' ? 'Correct!' : 'Incorrect!';
+      fb.innerHTML = `<div class="alert alert-${alertClass}"><h4>${title}</h4><p>${opt.feedback}</p></div>`;
+      document.getElementById('next-scenario').style.display = 'inline-block';
+      // show user action bubble (optional)
+      // append user bubble
+      const chat = document.getElementById('chat');
+      const userBubble = document.createElement('div');
+      userBubble.className = 'message user';
+      userBubble.innerText = opt.text;
+      chat.appendChild(userBubble);
+      chat.scrollTop = chat.scrollHeight;
+    }
 
-            const optionsEl = document.getElementById("user-options");
-            optionsEl.innerHTML = "";
-            optionsEl.style.display = "block";
-
-            currentCase.options.forEach(opt => {
-                const btn = document.createElement("button");
-                btn.className = "btn btn-outline-primary m-2";
-                btn.innerText = opt.text;
-                btn.onclick = () => chooseOption(opt);
-                optionsEl.appendChild(btn);
-            });
-
-            document.getElementById('feedback').innerHTML = "";
-            document.getElementById('next-scenario').style.display = 'none';
-        }
-
-        function chooseOption(choice) {
-            const feedbackEl = document.getElementById('feedback');
-            const optionsEl = document.getElementById('user-options');
-            optionsEl.style.display = 'none';
-
-            const alertType = choice.result === 'correct' ? 'success' : 'danger';
-            const title = choice.result === 'correct' ? 'Correct!' : 'Incorrect!';
-
-            feedbackEl.innerHTML = `<div class="alert alert-${alertType}"><h4>${title}</h4><p>${choice.feedback}</p></div>`;
-            document.getElementById('next-scenario').style.display = 'inline-block';
-        }
-
-        window.onload = loadRandomCase;
-    </script>
-
+    window.onload = loadRandomCase;
+  </script>
 </body>
 </html>

@@ -1,254 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn About Scams - Cyber Shield</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Learn About Scams - Cyber Shield</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root{--accent:#0d6efd;}
+    html,body{height:100%; margin:0; font-family:Inter, Arial; background:
+      radial-gradient(700px 300px at 10% 10%, rgba(13,110,253,0.06), transparent 10%),
+      linear-gradient(180deg,#071025,#061223); color:#e9eef8;}
+    .blob{position:absolute;border-radius:50%;filter:blur(36px);opacity:.3;mix-blend-mode:screen;pointer-events:none;z-index:0;}
+    .blob.s1{width:420px;height:420px;left:-80px;top:-90px;background:linear-gradient(135deg,#0d6efd,#7c8cff);}
+    .navbar{background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); margin:18px; border-radius:12px; padding:.5rem 1rem; box-shadow:0 10px 30px rgba(0,0,0,0.45); z-index:5;}
+    main{position:relative; z-index:5; padding:48px 0;}
+    .hero{max-width:1100px;margin:0 auto;}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.04); box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+    .btn-cat{border-radius:999px; padding:.5rem .9rem; margin:.25rem;}
+    .card.scam{border-radius:12px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:#e9eef8;}
+    .icon-sm{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.02);display:inline-flex;align-items:center;justify-content:center;}
+    @media(max-width:767px){ .hero{padding:0 16px;} }
+  </style>
 </head>
 <body>
+  <div class="blob s1" aria-hidden="true"></div>
 
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
-                    <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 2zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V13H5V6.3l7-3.11v9.8z" fill="#0d6efd"/>
-                </svg>
-                Cyber Shield
-            </a>
-            <div class="d-flex">
-                <a href="index.html" class="btn btn-outline-light me-2">Home</a>
-                <a href="learn.html" class="btn btn-light me-2">Learn</a>
-                <a href="stories.html" class="btn btn-outline-light me-2">Stories</a>
-                <a href="simulator.html" class="btn btn-outline-light me-2">Simulator</a>
-                <a href="analyzer.html" class="btn btn-outline-light">AI Analyzer</a>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 2z" fill="#0d6efd"/></svg>
+        Cyber Shield
+      </a>
+      <div class="d-flex">
+        <a href="index.html" class="btn btn-outline-light me-2">Home</a>
+        <a href="learn.html" class="btn btn-light me-2">Learn</a>
+        <a href="stories.html" class="btn btn-outline-light me-2">Stories</a>
+        <a href="simulator.html" class="btn btn-outline-light me-2">Simulator</a>
+        <a href="analyzer.html" class="btn btn-outline-light">AI Analyzer</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <div class="panel">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+          <div>
+            <h1 style="margin:0;">Understanding Online Scams</h1>
+            <p style="margin:6px 0 0 0;color:rgba(233,238,248,0.85);">Knowledge is the best defense. Choose a profile to see targeted tips and examples.</p>
+          </div>
+          <div>
+            <div class="btn-group" role="group" aria-label="profiles">
+              <button class="btn btn-outline-light btn-cat" onclick="showCategory(event,'students')">Students</button>
+              <button class="btn btn-outline-light btn-cat" onclick="showCategory(event,'teachers')">Teachers</button>
+              <button class="btn btn-outline-light btn-cat" onclick="showCategory(event,'seniors')">Seniors</button>
+              <button class="btn btn-outline-light btn-cat" onclick="showCategory(event,'professionals')">Professionals</button>
+              <button class="btn btn-outline-light btn-cat" onclick="showCategory(event,'parents')">Parents</button>
+              <button class="btn btn-light btn-cat" onclick="showCategory(event,'all')">Show All</button>
             </div>
+          </div>
         </div>
-    </nav>
 
-    <main class="content-wrapper">
-        <div class="container my-5">
-            <h1>Understanding Online Scams</h1>
-            <p class="lead">Knowledge is the best defense. Here are common scams to watch out for.</p>
-            
-            <div class="card mb-4 bg-primary text-white">
-                <div class="card-body text-center">
-                    <h3>Choose Your Profile for Personalized Tips</h3>
-                    <p>Select the category that best describes you to see scams that commonly target your group:</p>
-                    <div class="btn-group flex-wrap" role="group">
-                        <button type="button" class="btn btn-outline-light m-1" onclick="showCategory('students')">Students</button>
-                        <button type="button" class="btn btn-outline-light m-1" onclick="showCategory('teachers')">Teachers</button>
-                        <button type="button" class="btn btn-outline-light m-1" onclick="showCategory('seniors')">Senior Citizens</button>
-                        <button type="button" class="btn btn-outline-light m-1" onclick="showCategory('professionals')">Working Professionals</button>
-                        <button type="button" class="btn btn-outline-light m-1" onclick="showCategory('parents')">Parents</button>
-                        <button type="button" class="btn btn-light m-1" onclick="showCategory('all')">Show All Scams</button>
-                    </div>
+        <div id="common-scams" style="margin-top:18px;">
+          <h3>Common Scams Everyone Should Know</h3>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <div class="card scam p-3">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="icon-sm">
+                    <!-- phishing icon -->
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h12v2H3z" fill="#fff"/></svg>
+                  </div>
+                  <div>
+                    <h5 style="margin:0;">Phishing</h5>
+                    <p style="margin:6px 0 0 0;color:rgba(233,238,248,0.75)">Fraudulent messages impersonating trusted services to steal credentials.</p>
+                    <small style="color:rgba(233,238,248,0.65)">How to avoid: verify sender, avoid clicking unknown links.</small>
+                  </div>
                 </div>
+              </div>
             </div>
 
-            <div id="common-scams">
-                <h2 class="text-center mb-4">Common Scams Everyone Should Know</h2>
-                
-                <div class="card my-4">
-                    <div class="card-body">
-                        <h4 class="card-title">Phishing Scams</h4>
-                        <p class="card-text">Scammers send fraudulent emails or messages impersonating reputable companies to trick you into revealing personal information, such as passwords, credit card numbers, and bank account details.</p>
-                        <h6 class="card-subtitle mb-2 text-muted">How to Avoid:</h6>
-                        <ul>
-                            <li>Never click on suspicious links or download attachments from unknown senders.</li>
-                            <li>Check the sender's email address for authenticity.</li>
-                            <li>Look for grammatical errors and urgent, threatening language.</li>
-                        </ul>
-                    </div>
+            <div class="col-md-6">
+              <div class="card scam p-3">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="icon-sm">
+                    <!-- upi icon -->
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="#fff" stroke-width="2"/></svg>
+                  </div>
+                  <div>
+                    <h5 style="margin:0">UPI / Payment Scams</h5>
+                    <p style="margin:6px 0 0 0;color:rgba(233,238,248,0.75)">Fake requests, QR codes, or reversed payment traps.</p>
+                    <small style="color:rgba(233,238,248,0.65)">Tip: never enter your PIN to receive money.</small>
+                  </div>
                 </div>
-                <div class="card my-4">
-                    <div class="card-body">
-                        <h4 class="card-title">UPI/Digital Payment Scams</h4>
-                        <p class="card-text">Scammers use various tactics, such as fake payment requests or QR codes, to trick you into authorizing payments from your account instead of receiving money.</p>
-                        <h6 class="card-subtitle mb-2 text-muted">How to Avoid:</h6>
-                        <ul>
-                            <li>Remember: You never need to enter your PIN to *receive* money.</li>
-                            <li>Never scan a QR code unless you are making a payment to a trusted merchant.</li>
-                            <li>Be wary of messages creating false urgency.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card my-4">
-                    <div class="card-body">
-                        <h4 class="card-title">Fake OTP/SMS Scams</h4>
-                        <p class="card-text">Fraudsters send messages claiming to be from your bank or a service provider, asking you to share a One-Time Password (OTP) to "verify" your account or "prevent" a block. Sharing the OTP gives them access to your account.</p>
-                         <h6 class="card-subtitle mb-2 text-muted">How to Avoid:</h6>
-                        <ul>
-                            <li>Never share your OTP with anyone, including bank employees or customer support.</li>
-                            <li>Read the OTP message carefully; it usually states what the OTP is for.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card my-4">
-                    <div class="card-body">
-                        <h4 class="card-title">Fake Lottery & Prize Scams</h4>
-                        <p class="card-text">You receive an email or SMS claiming you've won a large sum of money or a prize. To claim it, you are asked to pay a "processing fee" or "tax." The prize does not exist.</p>
-                        <h6 class="card-subtitle mb-2 text-muted">How to Avoid:</h6>
-                        <ul>
-                            <li>If you didn't enter a contest, you didn't win.</li>
-                            <li>Legitimate lotteries do not ask for a fee to release winnings.</li>
-                        </ul>
-                    </div>
-                </div>
-                 <div class="card my-4">
-                    <div class="card-body">
-                        <h4 class="card-title">Tech Support Scams</h4>
-                        <p class="card-text">A pop-up window or phone call claims your computer is infected with a virus. The "technician" asks for remote access to your device and then charges you for unnecessary services or installs malware.</p>
-                        <h6 class="card-subtitle mb-2 text-muted">How to Avoid:</h6>
-                        <ul>
-                            <li>Legitimate tech companies will not contact you unsolicited.</li>
-                            <li>Never grant remote access to your computer to someone you don't know and trust.</li>
-                        </ul>
-                    </div>
-                </div>
+              </div>
             </div>
-
-            <div id="students-scams" class="category-section" style="display: none;">
-                <h2 class="text-center mb-4 text-primary">Scams Targeting Students</h2>
-                <div class="card my-4 border-primary">
-                    <div class="card-body">
-                        <h4 class="card-title">Easy Money/Part-time Job Scams</h4>
-                        <p class="card-text">These scams promise high-paying, flexible part-time jobs that require little effort. Often, you are asked to pay an upfront "registration fee" or "training cost," or to process payments through your bank account, which could be part of a money-laundering scheme.</p>
-                        <h6 class="card-subtitle mb-2 text-muted">How to Avoid:</h6>
-                        <ul>
-                            <li>Be skeptical of jobs that offer high pay for simple tasks.</li>
-                            <li>Never pay a fee to secure a job. Legitimate employers do not charge for hiring.</li>
-                            <li>Do not use your personal bank account for company transactions.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="teachers-scams" class="category-section" style="display: none;">
-                <h2 class="text-center mb-4 text-success">Scams Targeting Teachers</h2>
-                <div class="card my-4 border-success">
-                    <div class="card-body">
-                        <h4 class="card-title">Fake Government Schemes & Benefits</h4>
-                        <p class="card-text">Scammers create fake websites or send messages about exclusive government schemes, grants, or training programs for educators. They aim to steal personal information or collect "application fees" for non-existent benefits.</p>
-                        <h6 class="card-subtitle mb-2 text-muted">How to Avoid:</h6>
-                        <ul>
-                            <li>Always verify schemes on official government websites (ending in .gov.in or .nic.in).</li>
-                            <li>Do not trust unsolicited messages about special benefits.</li>
-                            <li>Government bodies rarely ask for fees through unofficial payment links.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="seniors-scams" class="category-section" style="display: none;">
-                <h2 class="text-center mb-4 text-warning">Scams Targeting Senior Citizens</h2>
-                <div class="card my-4 border-warning">
-                    <div class="card-body">
-                        <h4 class="card-title">Fake Medical Emergency Scams</h4>
-                        <p class="card-text">A scammer calls or messages, pretending to be a grandchild or other relative in urgent need of money for a medical emergency. They insist on secrecy and immediate payment, creating panic to bypass rational thinking.</p>
-                        <h6 class="card-subtitle mb-2 text-muted">How to Avoid:</h6>
-                        <ul>
-                            <li>Resist the pressure to act immediately.</li>
-                            <li>Hang up and call your relative back on their known, trusted phone number to verify the story.</li>
-                            <li>Ask a personal question that only your real relative would know the answer to.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="professionals-scams" class="category-section" style="display: none;">
-                <h2 class="text-center mb-4 text-info">Scams Targeting Working Professionals</h2>
-                <div class="card my-4 border-info">
-                    <div class="card-body">
-                        <h4 class="card-title">Investment & Trading Scams</h4>
-                        <p class="card-text">These scams promise guaranteed, high returns on investments in stocks, cryptocurrency, or other financial products. They often use fake apps or websites that show fabricated profits, luring you to invest more before disappearing with your money.</p>
-                        <h6 class="card-subtitle mb-2 text-muted">How to Avoid:</h6>
-                        <ul>
-                            <li>If an investment promises guaranteed high returns with zero risk, it's a scam.</li>
-                            <li>Only use reputable, well-known investment platforms and brokers.</li>
-                            <li>Beware of "advisors" who contact you on social media or messaging apps.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="parents-scams" class="category-section" style="display: none;">
-                <h2 class="text-center mb-4 text-danger">Scams Targeting Parents</h2>
-                <div class="card my-4 border-danger">
-                    <div class="card-body">
-                        <h4 class="card-title">Fake School/College Admission Scams</h4>
-                        <p class="card-text">Scammers pose as agents who can guarantee admission into a prestigious school or college for a large "donation" or "processing fee." They exploit the anxiety of parents to extract money for a service they cannot provide.</p>
-                        <h6 class="card-subtitle mb-2 text-muted">How to Avoid:</h6>
-                        <ul>
-                            <li>Follow the official admission process published by the educational institution.</li>
-                            <li>Never pay cash for admissions or deal with unauthorized "agents."</li>
-                            <li>Verify any payment requests directly with the institution's official admissions office.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </main>
 
-    <footer class="footer bg-dark text-white text-center py-3">
-        <div class="container">
-            <div class="card my-4 bg-danger text-white">
-                <div class="card-body text-center">
-                    <h3>If You Have Been Scammed</h3>
-                    <p><strong>Report immediately to the following authorities:</strong></p>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h5>Cyber Crime Helpline</h5>
-                            <p><strong>1930</strong></p>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>National Cyber Crime Portal</h5>
-                            <p><strong><a href="https://cybercrime.gov.in" target="_blank" class="text-white text-decoration-underline">cybercrime.gov.in</a></strong></p>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>Your Bank's Helpline</h5>
-                            <p><strong>Immediately inform your bank to block cards/accounts.</strong></p>
-                        </div>
-                    </div>
-                </div>
+        <!-- per-profile sections -->
+        <div id="students-scams" class="cat" style="display:none; margin-top:14px;">
+          <h4>Scams Targeting Students</h4>
+          <div class="card p-3 mt-2 scam">
+            <div class="d-flex gap-3">
+              <div class="icon-sm"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z" fill="#fff"/></svg></div>
+              <div>
+                <h5 style="margin:0">Fake Part-time Jobs</h5>
+                <p style="margin:6px 0 0 0;color:rgba(233,238,248,0.75)">Requests for payment to get a job, or using your account for transfers (money-mule).</p>
+                <small style="color:rgba(233,238,248,0.65)">Avoid: never pay to get hired. Ask for employer verifiable details.</small>
+              </div>
             </div>
-            <p class="mb-0">&copy; 2025 Cyber Shield. A CodeFury 8.0 Project.</p>
+          </div>
         </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function showCategory(category) {
-            const commonScams = document.getElementById('common-scams');
-            const sections = document.querySelectorAll('.category-section');
-            const buttons = document.querySelectorAll('.btn-group .btn');
+        <div id="teachers-scams" class="cat" style="display:none; margin-top:14px;">
+          <h4>Scams Targeting Teachers</h4>
+          <div class="card p-3 mt-2 scam">
+            <div class="d-flex gap-3">
+              <div class="icon-sm"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M3 6h18v2H3z" fill="#fff"/></svg></div>
+              <div>
+                <h5 style="margin:0">Fake Government Grants</h5>
+                <p style="margin:6px 0 0 0;color:rgba(233,238,248,0.75)">Unsolicited links asking for application fees; check official .gov.in sources.</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            // Reset all button styles to default
-            buttons.forEach(btn => {
-                btn.classList.remove('btn-light');
-                btn.classList.add('btn-outline-light');
-            });
+        <div id="seniors-scams" class="cat" style="display:none; margin-top:14px;">
+          <h4>Scams Targeting Seniors</h4>
+          <div class="card p-3 mt-2 scam">
+            <div class="d-flex gap-3">
+              <div class="icon-sm"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z" fill="#fff"/></svg></div>
+              <div>
+                <h5 style="margin:0">Emergency / Relative Scams</h5>
+                <p style="margin:6px 0 0 0;color:rgba(233,238,248,0.75)">Scammers create urgency claiming a friend/relative needs money.</p>
+                <small style="color:rgba(233,238,248,0.65)">Always call the relative on a known number to confirm.</small>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            // Hide all toggleable content sections first
-            commonScams.style.display = 'none';
-            sections.forEach(section => section.style.display = 'none');
-            
-            // Show the selected content based on the category
-            if (category === 'all') {
-                // If 'all', show common scams and all category sections
-                commonScams.style.display = 'block';
-                sections.forEach(section => {
-                    section.style.display = 'block';
-                });
-            } else {
-                // Otherwise, show only the specific target section
-                const targetSection = document.getElementById(category + '-scams');
-                if (targetSection) {
-                    targetSection.style.display = 'block';
-                }
-            }
-            
-            // Highlight the currently active button
-            event.currentTarget.classList.remove('btn-outline-light');
-            event.currentTarget.classList.add('btn-light');
-        }
-    </script>
+        <div id="professionals-scams" class="cat" style="display:none; margin-top:14px;">
+          <h4>Scams Targeting Professionals</h4>
+          <div class="card p-3 mt-2 scam">
+            <div class="d-flex gap-3">
+              <div class="icon-sm"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M3 13h18" stroke="#fff" stroke-width="2"/></svg></div>
+              <div>
+                <h5 style="margin:0">Investment & Trading Scams</h5>
+                <p style="margin:6px 0 0 0;color:rgba(233,238,248,0.75)">Guaranteed returns or fake platforms showing fabricated profits.</p>
+                <small style="color:rgba(233,238,248,0.65)">Only use verified brokers and do independent checks.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="parents-scams" class="cat" style="display:none; margin-top:14px;">
+          <h4>Scams Targeting Parents</h4>
+          <div class="card p-3 mt-2 scam">
+            <div class="d-flex gap-3">
+              <div class="icon-sm"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12" fill="#fff"/></svg></div>
+              <div>
+                <h5 style="margin:0">Admission / Agent Scams</h5>
+                <p style="margin:6px 0 0 0;color:rgba(233,238,248,0.75)">Agents asking cash to secure admissions — verify through official admissions channels.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer style="position:relative;z-index:5;text-align:center;color:rgba(233,238,248,0.75);padding:18px 0">
+    <p class="mb-0">&copy; 2025 Cyber Shield</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function showCategory(e, category) {
+      const common = document.getElementById('common-scams');
+      const cats = document.querySelectorAll('.cat');
+      // reset
+      common.style.display = 'none';
+      cats.forEach(c => c.style.display = 'none');
+      // highlight active button
+      document.querySelectorAll('.btn-cat').forEach(b => b.classList.remove('btn-light'));
+      if(e && e.currentTarget) { e.currentTarget.classList.add('btn-light'); e.currentTarget.classList.remove('btn-outline-light'); }
+      if(category === 'all') {
+        common.style.display = 'block';
+        cats.forEach(c => c.style.display = 'block');
+      } else {
+        const el = document.getElementById(category + '-scams');
+        if(el) el.style.display = 'block';
+      }
+    }
+  </script>
 </body>
 </html>
