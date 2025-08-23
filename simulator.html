@@ -1,12 +1,9 @@
-<!-- =================================================================================== -->
-<!-- FILE: simulator.html (FIXED) -->
-<!-- =================================================================================== -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scam Simulator - Safety Hub</title>
+    <title>Scam Simulator - Cyber Shield</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -15,36 +12,37 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">🛡️ Safety Hub</a>
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <!-- SVG Logo -->
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
+                    <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 2zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V13H5V6.3l7-3.11v9.8z" fill="#0d6efd"/>
+                </svg>
+                Cyber Shield
+            </a>
             <div class="d-flex">
                 <a href="index.html" class="btn btn-outline-light me-2">Home</a>
                 <a href="learn.html" class="btn btn-outline-light me-2">Learn</a>
                 <a href="stories.html" class="btn btn-outline-light me-2">Stories</a>
                 <a href="simulator.html" class="btn btn-light me-2">Simulator</a>
-                <a href="analyzer.html" class="btn btn-outline-light">✨ AI Analyzer</a>
+                <a href="analyzer.html" class="btn btn-outline-light">AI Analyzer</a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content Wrapper -->
+    <!-- Main Content -->
     <main class="content-wrapper">
         <div class="container my-5">
-            <div class="col-lg-8 mx-auto">
+            <div class="col-lg-8 mx-auto text-center">
                 <h1>Can You Spot the Scam?</h1>
-                <p class="lead">You receive the following message on your phone. How do you respond?</p>
+                <p class="lead">You receive the following message. How do you respond?</p>
                 
                 <div class="chat-window mt-4">
-                    <div class="message scammer">
-                        Hello, this is from your bank. Your UPI has been blocked due to a security issue. To reactivate, please click this link immediately: fake-bank-reactivate.xyz
-                    </div>
-
-                    <div id="user-options" class="mt-4 text-center">
-                        <button class="btn btn-danger mx-2" onclick="chooseOption('wrong')">Click the Link</button>
-                        <button class="btn btn-success mx-2" onclick="chooseOption('correct')">Ignore & Delete Message</button>
-                    </div>
-
+                    <div id="scam-message" class="message scammer"></div>
+                    <div id="user-options" class="mt-4"></div>
                     <div id="feedback" class="mt-4"></div>
                 </div>
+
+                <button id="next-scenario" class="btn btn-primary mt-3" style="display: none;" onclick="loadRandomCase()">Try Another Scenario</button>
             </div>
         </div>
     </main>
@@ -52,10 +50,10 @@
     <!-- Footer -->
     <footer class="footer bg-dark text-white text-center py-3">
         <div class="container">
-           <!-- Emergency Contact Information -->
+            <!-- Emergency Contact Information -->
             <div class="card my-4 bg-danger text-white">
                 <div class="card-body text-center">
-                    <h3>🚨 If You've Been Scammed</h3>
+                    <h3>If You've Been Scammed</h3>
                     <p><strong>Report immediately to:</strong></p>
                     <div class="row">
                         <div class="col-md-4">
@@ -73,23 +71,114 @@
                     </div>
                 </div>
             </div>
-            <p class="mb-0">&copy; 2025 Safety Hub. A CodeFury 8.0 Project.</p>
+            <p class="mb-0">&copy; 2025 Cyber Shield. A CodeFury 8.0 Project.</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        const cases = [
+            {
+                message: "Hello, this is from your bank. Your UPI has been blocked due to a security issue. To reactivate, please click this link immediately: fake-bank-reactivate.xyz",
+                options: [
+                    { text: "Click the Link", result: "wrong", feedback: "Incorrect! Banks never send links via SMS or WhatsApp to unblock accounts. Always contact them through their official app or helpline." },
+                    { text: "Ignore & Delete Message", result: "correct", feedback: "Correct! This is a classic phishing attempt. You rightly ignored the suspicious link." }
+                ]
+            },
+            {
+                message: "Congratulations! You’ve won a free iPhone. Claim your prize now by entering your details at free-iphone-prize.net",
+                options: [
+                    { text: "Enter Details", result: "wrong", feedback: "Incorrect! Unsolicited prize notifications are almost always scams designed to steal your personal information." },
+                    { text: "Ignore & Report as Spam", result: "correct", feedback: "Correct! If it sounds too good to be true, it probably is. You can't win a lottery you didn't enter." }
+                ]
+            },
+            {
+                message: "This is the Income Tax Department. Your PAN card will be deactivated unless you verify it at secure-pan-verify.org",
+                options: [
+                    { text: "Click Verify Link", result: "wrong", feedback: "Incorrect! Government agencies do not send such critical alerts via SMS with unofficial links. Always use their official websites." },
+                    { text: "Do Not Respond & Check Govt Website", result: "correct", feedback: "Correct! The safest action is to visit the official income tax portal directly to check for any alerts." }
+                ]
+            },
+            {
+                message: "Your relative is in urgent need of money, please transfer ₹5000 immediately to this account for hospital expenses.",
+                options: [
+                    { text: "Send Money Immediately", result: "wrong", feedback: "Incorrect! Scammers create a false sense of urgency. You should always verify such requests first." },
+                    { text: "Call Relative Directly & Verify", result: "correct", feedback: "Correct! The best way to handle an emergency request is to contact the person directly on their known number to confirm." }
+                ]
+            },
+            {
+                message: "Amazon: Your package cannot be delivered until you confirm your address at amazon-delivery-fix.co",
+                options: [
+                    { text: "Confirm Address via Link", result: "wrong", feedback: "Incorrect! The link is fake. Amazon and other delivery services manage all tracking and address issues within their official app or website." },
+                    { text: "Ignore & Check Amazon App", result: "correct", feedback: "Correct! Always check the order status on the official app or website, never through a link in an SMS." }
+                ]
+            },
+            {
+                message: "Netflix: Your subscription has expired. Renew now at netflix-renew-payments.com to avoid suspension.",
+                options: [
+                    { text: "Renew Subscription via Link", result: "wrong", feedback: "Incorrect! This is a phishing link designed to steal your payment details. Never update payment info through links in messages." },
+                    { text: "Renew Only via Official Netflix Website/App", result: "correct", feedback: "Correct! Always manage your subscriptions directly on the service's official platform." }
+                ]
+            },
+            {
+                message: "WhatsApp Security: Your account will be blocked unless you verify immediately here: whatsapp-secure-login.net",
+                options: [
+                    { text: "Click Verify Link", result: "wrong", feedback: "Incorrect! WhatsApp will never ask you to verify your account through a link in a message." },
+                    { text: "Ignore & Enable 2FA from WhatsApp Settings", result: "correct", feedback: "Correct! The best way to secure your account is by using the official security features like Two-Factor Authentication (2FA)." }
+                ]
+            }
+        ];
+
+        let recentCases = [];
+        let currentCase = {};
+
+        function loadRandomCase() {
+            let availableCases = cases.filter((_, index) => !recentCases.includes(index));
+
+            if (availableCases.length === 0) {
+                recentCases = []; // reset history after showing all cases
+                availableCases = [...cases];
+            }
+
+            const randomIndex = Math.floor(Math.random() * availableCases.length);
+            currentCase = availableCases[randomIndex];
+            const caseIndex = cases.indexOf(currentCase);
+
+            recentCases.push(caseIndex);
+            if (recentCases.length > 5) recentCases.shift();
+
+            document.getElementById("scam-message").innerText = currentCase.message;
+
+            const optionsEl = document.getElementById("user-options");
+            optionsEl.innerHTML = "";
+            optionsEl.style.display = "block";
+
+            currentCase.options.forEach(opt => {
+                const btn = document.createElement("button");
+                btn.className = "btn btn-outline-primary m-2";
+                btn.innerText = opt.text;
+                btn.onclick = () => chooseOption(opt);
+                optionsEl.appendChild(btn);
+            });
+
+            document.getElementById('feedback').innerHTML = "";
+            document.getElementById('next-scenario').style.display = 'none';
+        }
+
         function chooseOption(choice) {
             const feedbackEl = document.getElementById('feedback');
             const optionsEl = document.getElementById('user-options');
             optionsEl.style.display = 'none';
 
-            if (choice === 'correct') {
-                feedbackEl.innerHTML = `<div class="alert alert-success"><h4>Correct!</h4><p>This is the right choice. Banks will never send you links via text message to fix security issues.</p></div>`;
-            } else {
-                feedbackEl.innerHTML = `<div class="alert alert-danger"><h4>Incorrect!</h4><p>This is a phishing scam. Clicking the link would take you to a fake website designed to steal your bank details.</p></div>`;
-            }
+            const alertType = choice.result === 'correct' ? 'success' : 'danger';
+            const title = choice.result === 'correct' ? 'Correct!' : 'Incorrect!';
+
+            feedbackEl.innerHTML = `<div class="alert alert-${alertType}"><h4>${title}</h4><p>${choice.feedback}</p></div>`;
+            document.getElementById('next-scenario').style.display = 'inline-block';
         }
+
+        window.onload = loadRandomCase;
     </script>
+
 </body>
 </html>
