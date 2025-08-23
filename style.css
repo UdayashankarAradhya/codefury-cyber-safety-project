@@ -1,0 +1,30 @@
+body {
+    /* Making the default font slightly larger for better readability for seniors */
+    font-size: 18px;
+    background-color: #f8f9fa; /* A light grey background */
+}
+
+.chat-window {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    max-width: 600px;
+    margin: auto;
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    line-height: 1.4;
+}
+
+.scammer {
+    background-color: #e9e9eb; /* Grey bubble, like iMessage */
+    color: #000;
+    text-align: left;
+    float: left;
+    clear: both;
+}

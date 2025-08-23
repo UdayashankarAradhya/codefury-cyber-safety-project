@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn About Scams - Safety Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">🛡️ Safety Hub</a>
+            <div class="d-flex">
+                <a href="index.html" class="btn btn-outline-light me-2">Home</a>
+                <a href="learn.html" class="btn btn-light me-2">Learn</a>
+                <a href="stories.html" class="btn btn-outline-light me-2">Stories</a>
+                <a href="simulator.html" class="btn btn-outline-light me-2">Simulator</a>
+                <a href="analyzer.html" class="btn btn-outline-light">✨ AI Analyzer</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <h1>Understanding Online Scams</h1>
+        <p class="lead">Knowledge is the best defense. Here are common scams to watch out for.</p>
+        
+        <!-- Personalized Categories Section -->
+        <div class="card mb-4 bg-primary text-white">
+            <div class="card-body text-center">
+                <h3>👥 Choose Your Profile for Personalized Tips</h3>
+                <p>Select the category that best describes you to see scams that specifically target your group:</p>
+                <div class="btn-group flex-wrap" role="group">
+                    <button type="button" class="btn btn-outline-light m-1" onclick="showCategory('students')">🎓 Students</button>
+                    <button type="button" class="btn btn-outline-light m-1" onclick="showCategory('teachers')">👩‍🏫 Teachers</button>
+                    <button type="button" class="btn btn-outline-light m-1" onclick="showCategory('seniors')">👴 Senior Citizens</button>
+                    <button type="button" class="btn btn-outline-light m-1" onclick="showCategory('professionals')">💼 Working Professionals</button>
+                    <button type="button" class="btn btn-outline-light m-1" onclick="showCategory('parents')">👨‍👩‍👧‍👦 Parents</button>
+                    <button type="button" class="btn btn-outline-light m-1" onclick="showCategory('all')">🌍 Show All Scams</button>
+                
+                </div>
+            
+            </div>
+        
+        </div>
+
+        <!-- Common Scams for Everyone -->
+        <div id="common-scams">
+            <h2 class="text-center mb-4">🚨 Common Scams Everyone Should Know</h2>
+            
+            <!-- UPI Scams -->
+            <div class="card my-4">
+                <div class="card-body">
+                    <h3 class="card-title">💳 UPI/Digital Payment Scams</h3>
+                    <p class="card-text">Scammers trick you into sending money through UPI apps like PhonePe, Google Pay, or Paytm by pretending to be someone trustworthy or creating fake emergencies.</p>
+                    <h4 class="mt-3 text-success">How to Stay Safe:</h4>
+                    <ul>
+                        <li>Never send money to unknown numbers, even if they claim to be friends or family in distress</li>
+                        <li>Always verify through a phone call before sending money to anyone</li>
+                        <li>Banks never ask for money transfers to "verify" your account</li>
+                        <li>Double-check the recipient's name before confirming any payment</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- OTP/SMS Scams -->
+            <div class="card my-4">
+                <div class="card-body">
+                    <h3 class="card-title">📱 Fake OTP/SMS Scams</h3>
+                    <p class="card-text">Scammers send fake messages claiming to be from your bank, asking you to share OTPs (One-Time Passwords) or click malicious links to "update" your account.</p>
+                    <h4 class="mt-3 text-success">How to Stay Safe:</h4>
+                    <ul>
+                        <li>Never share OTPs with anyone - even bank employees won't ask for them</li>
+                        <li>Banks never send links via SMS asking you to update KYC or account details</li>
+                        <li>Always contact your bank directly using official numbers if you receive suspicious messages</li>
+                        <li>Look for spelling mistakes and unofficial sender numbers in messages</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Lottery/Prize Scams -->
+            <div class="card my-4">
+                <div class="card-body">
+                    <h3 class="card-title">🎰 Fake Lottery & Prize Scams</h3>
+                    <p class="card-text">You receive messages saying you've won a huge lottery or prize from companies like KBC, Flipkart, or international lotteries you never entered.</p>
+                    <h4 class="mt-3 text-success">How to Stay Safe:</h4>
+                    <ul>
+                        <li>You cannot win a lottery you never participated in</li>
+                        <li>Legitimate prizes never require you to pay fees or taxes upfront</li>
+                        <li>Real companies contact winners through official channels, not random WhatsApp messages</li>
+                        <li>If it sounds too good to be true, it probably is</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category-Specific Sections (Initially Hidden) -->
+        
+        <!-- Students Section -->
+        <div id="students-scams" class="category-section" style="display: none;">
+            <h2 class="text-center mb-4 text-primary">🎓 Scams Targeting Students</h2>
+            
+            <div class="card my-4 border-primary">
+                <div class="card-body">
+                    <h3 class="card-title">💰 Easy Money/Part-time Job Scams</h3>
+                    <p class="card-text">Fake job offers promising easy money for simple tasks like data entry, survey filling, or social media engagement. They ask for registration fees or personal documents.</p>
+                    <h4 class="mt-3 text-success">Student-Specific Safety Tips:</h4>
+                    <ul>
+                        <li>Legitimate part-time jobs never ask for upfront payment</li>
+                        <li>Be cautious of "work from home" offers that seem too easy</li>
+                        <li>Never share your Aadhaar card, PAN card, or bank details for "verification"</li>
+                        <li>Ask seniors or parents before taking any online job offers</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card my-4 border-primary">
+                <div class="card-body">
+                    <h3 class="card-title">🎮 Gaming & App Scams</h3>
+                    <p class="card-text">Fake gaming apps or betting platforms promising guaranteed wins and easy money. Popular among students looking for quick cash.</p>
+                    <h4 class="mt-3 text-success">Stay Safe While Gaming:</h4>
+                    <ul>
+                        <li>Never download APK files from unknown sources</li>
+                        <li>Avoid betting or gambling apps - they're designed to make you lose money</li>
+                        <li>Don't share gaming account passwords with strangers</li>
+                        <li>Be cautious of in-app purchases and subscription traps</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card my-4 border-primary">
+                <div class="card-body">
+                    <h3 class="card-title">📚 Educational Loan & Scholarship Scams</h3>
+                    <p class="card-text">Fake offers for instant education loans or scholarships that require processing fees or personal information.</p>
+                    <h4 class="mt-3 text-success">Verify Before You Trust:</h4>
+                    <ul>
+                        <li>Research scholarship providers through official government websites</li>
+                        <li>Legitimate scholarships never ask for processing fees</li>
+                        <li>Always involve parents/guardians in financial decisions</li>
+                        <li>Use only official bank channels for education loans</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teachers Section -->
+        <div id="teachers-scams" class="category-section" style="display: none;">
+            <h2 class="text-center mb-4 text-success">👩‍🏫 Scams Targeting Teachers</h2>
+            
+            <div class="card my-4 border-success">
+                <div class="card-body">
+                    <h3 class="card-title">📋 Fake Government Schemes & Benefits</h3>
+                    <p class="card-text">Scammers impersonate government officials offering fake teacher benefits, pension updates, or salary increments requiring personal information.</p>
+                    <h4 class="mt-3 text-success">Verify Government Communications:</h4>
+                    <ul>
+                        <li>Always verify through official school administration or education department</li>
+                        <li>Government schemes are announced through official channels, not WhatsApp</li>
+                        <li>Never share employee ID, PAN, or bank details over phone/messages</li>
+                        <li>Check government websites for authentic scheme information</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card my-4 border-success">
+                <div class="card-body">
+                    <h3 class="card-title">💻 Educational Platform & Training Scams</h3>
+                    <p class="card-text">Fake offers for expensive teaching certifications, online courses, or educational software with upfront payments and false promises.</p>
+                    <h4 class="mt-3 text-success">Choose Legitimate Education Platforms:</h4>
+                    <ul>
+                        <li>Research the organization thoroughly before paying for any course</li>
+                        <li>Check reviews and ratings from multiple sources</li>
+                        <li>Prefer recognized institutions over unknown online platforms</li>
+                        <li>Be wary of courses promising unrealistic career transformations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card my-4 border-success">
+                <div class="card-body">
+                    <h3 class="card-title">👨‍👩‍👧‍👦 Parent Impersonation Scams</h3>
+                    <p class="card-text">Scammers pretend to be parents of students, requesting personal information about children or creating fake emergencies.</p>
+                    <h4 class="mt-3 text-success">Protect Student Information:</h4>
+                    <ul>
+                        <li>Always verify parent identity through school records before sharing any information</li>
+                        <li>Don't share student personal details over phone or messages</li>
+                        <li>Follow school protocols for parent communication</li>
+                        <li>Be cautious of urgent requests for money or information</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Senior Citizens Section -->
+        <div id="seniors-scams" class="category-section" style="display: none;">
+            <h2 class="text-center mb-4 text-warning">👴 Scams Targeting Senior Citizens</h2>
+            
+            <div class="card my-4 border-warning">
+                <div class="card-body">
+                    <h3 class="card-title">🏥 Fake Medical Emergency Scams</h3>
+                    <p class="card-text">Scammers call pretending your family member is in hospital and needs immediate money transfer for treatment.</p>
+                    <h4 class="mt-3 text-success">Handle Emergency Calls Carefully:</h4>
+                    <ul>
+                        <li>Always call your family member directly before sending any money</li>
+                        <li>Ask specific questions only your family would know</li>
+                        <li>Take time to verify - real emergencies allow for a quick verification call</li>
+                        <li>Involve other family members before making large money transfers</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card my-4 border-warning">
+                <div class="card-body">
+                    <h3 class="card-title">💊 Health & Medicine Scams</h3>
+                    <p class="card-text">Fake miracle cures, expensive health supplements, or medical schemes targeting health-conscious seniors.</p>
+                    <h4 class="mt-3 text-success">Protect Your Health & Money:</h4>
+                    <ul>
+                        <li>Consult your regular doctor before trying any new treatment</li>
+                        <li>Be skeptical of "miracle cures" or "guaranteed" treatments</li>
+                        <li>Buy medicines only from licensed pharmacies</li>
+                        <li>Don't fall for high-pressure sales tactics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card my-4 border-warning">
+                <div class="card-body">
+                    <h3 class="card-title">🏛️ Fake Bank Official Scams</h3>
+                    <p class="card-text">Scammers pose as bank managers or RBI officials, claiming account problems that need immediate attention and money transfers.</p>
+                    <h4 class="mt-3 text-success">Verify Bank Communications:</h4>
+                    <ul>
+                        <li>Banks never ask for money transfers to fix account issues</li>
+                        <li>Visit your bank branch personally for any major account concerns</li>
+                        <li>Don't download apps sent by unknown callers</li>
+                        <li>Keep a trusted family member informed about financial matters</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Working Professionals Section -->
+        <div id="professionals-scams" class="category-section" style="display: none;">
+            <h2 class="text-center mb-4 text-info">💼 Scams Targeting Working Professionals</h2>
+            
+            <div class="card my-4 border-info">
+                <div class="card-body">
+                    <h3 class="card-title">💹 Investment & Trading Scams</h3>
+                    <p class="card-text">Fake stock tips, cryptocurrency investments, or trading platforms promising guaranteed high returns on investments.</p>
+                    <h4 class="mt-3 text-success">Invest Wisely:</h4>
+                    <ul>
+                        <li>Research any investment platform thoroughly before investing</li>
+                        <li>No investment can guarantee returns without risk</li>
+                        <li>Use only SEBI-registered investment platforms</li>
+                        <li>Be wary of pressure to invest immediately</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card my-4 border-info">
+                <div class="card-body">
+                    <h3 class="card-title">🏢 Fake Job Offers & LinkedIn Scams</h3>
+                    <p class="card-text">Fraudulent job offers requiring upfront fees for "processing" or fake companies requesting personal documents and payments.</p>
+                    <h4 class="mt-3 text-success">Verify Job Opportunities:</h4>
+                    <ul>
+                        <li>Research the company on official websites and LinkedIn</li>
+                        <li>Legitimate companies never ask for payment during recruitment</li>
+                        <li>Be cautious of interviews conducted only over phone/WhatsApp</li>
+                        <li>Verify company address and contact information</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card my-4 border-info">
+                <div class="card-body">
+                    <h3 class="card-title">💳 Credit Card & Loan Scams</h3>
+                    <p class="card-text">Fake pre-approved credit cards or instant loans that require processing fees or personal document sharing.</p>
+                    <h4 class="mt-3 text-success">Handle Credit Offers Carefully:</h4>
+                    <ul>
+                        <li>Apply for credit cards only through official bank channels</li>
+                        <li>No legitimate bank charges fees for pre-approved offers</li>
+                        <li>Check your credit score through authorized platforms</li>
+                        <li>Don't share credit card details over phone calls</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parents Section -->
+        <div id="parents-scams" class="category-section" style="display: none;">
+            <h2 class="text-center mb-4 text-danger">👨‍👩‍👧‍👦 Scams Targeting Parents</h2>
+            
+            <div class="card my-4 border-danger">
+                <div class="card-body">
+                    <h3 class="card-title">🎓 Fake School/College Admission Scams</h3>
+                    <p class="card-text">Fraudulent admission offers for prestigious schools or colleges requiring donation payments or capitation fees through unofficial channels.</p>
+                    <h4 class="mt-3 text-success">Ensure Legitimate Admissions:</h4>
+                    <ul>
+                        <li>Always go through official admission processes</li>
+                        <li>Pay fees only through official school/college accounts</li>
+                        <li>Be wary of guaranteed admission offers for money</li>
+                        <li>Verify admission counselors and their credentials</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card my-4 border-danger">
+                <div class="card-body">
+                    <h3 class="card-title">🚨 Child Emergency Scams</h3>
+                    <p class="card-text">Scammers claim your child is in trouble, arrested, or hurt and needs immediate money transfer. They may even have some personal information about your child.</p>
+                    <h4 class="mt-3 text-success">Handle Child Emergency Calls:</h4>
+                    <ul>
+                        <li>Always try to contact your child directly first</li>
+                        <li>Ask specific questions only your child would know</li>
+                        <li>Contact the school or other parents to verify the situation</li>
+                        <li>Stay calm and don't make hasty financial decisions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card my-4 border-danger">
+                <div class="card-body">
+                    <h3 class="card-title">🛍️ Online Shopping Scams for Kids' Items</h3>
+                    <p class="card-text">Fake online stores selling children's items, toys, or educational materials at very low prices but never delivering products.</p>
+                    <h4 class="mt-3 text-success">Shop Safely Online:</h4>
+                    <ul>
+                        <li>Use well-known e-commerce platforms like Amazon, Flipkart</li>
+                        <li>Check seller ratings and reviews before purchasing</li>
+                        <li>Be cautious of deals that seem too good to be true</li>
+                        <li>Use secure payment methods and avoid direct bank transfers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Contact Information -->
+        <div class="card my-4 bg-danger text-white">
+            <div class="card-body text-center">
+                <h3>🚨 If You've Been Scammed</h3>
+                <p><strong>Report immediately to:</strong></p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Cyber Crime Helpline</h5>
+                        <p><strong>1930</strong></p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>National Cyber Crime Portal</h5>
+                         <p><strong><a href="https://cybercrime.gov.in" target="_blank" class="text-white text-decoration-underline">cybercrime.gov.in</a></strong></p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Your Bank's Helpline</h5>
+                        <p><strong>Immediately block cards/accounts</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showCategory(category) {
+            // Hide all category sections
+            const sections = document.querySelectorAll('.category-section');
+            sections.forEach(section => section.style.display = 'none');
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.btn-group .btn');
+            buttons.forEach(btn => btn.classList.remove('btn-light'));
+            buttons.forEach(btn => btn.classList.add('btn-outline-light'));
+            
+            if (category === 'all') {
+                // Show common scams only
+                document.getElementById('common-scams').scrollIntoView({ behavior: 'smooth' });
+                event.target.classList.remove('btn-outline-light');
+                event.target.classList.add('btn-light');
+            } else {
+                // Show specific category
+                const targetSection = document.getElementById(category + '-scams');
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                    event.target.classList.remove('btn-outline-light');
+                    event.target.classList.add('btn-light');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
