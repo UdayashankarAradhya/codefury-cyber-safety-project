@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cyber Shield - Login</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* All CSS from the original index.html is included here.
+       Only added .login-card-wrapper and adjusted the main section structure.
+    */
+    :root{
+      --accent: #0d6efd;
+      --accent-2: #ffb703;
+      --glass-bg: rgba(255,255,255,0.06);
+      --card-radius: 18px;
+      --soft-shadow: 0 10px 30px rgba(8,10,20,0.35);
+      --glass-border: rgba(255,255,255,0.08);
+      --muted: rgba(255,255,255,0.75);
+    }
+
+    html,body{
+      height:100%;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(13,110,253,0.12), transparent 10%),
+                  radial-gradient(1000px 500px at 90% 90%, rgba(255,183,3,0.06), transparent 12%),
+                  linear-gradient(180deg,#071025 0%, #061223 55%, #071229 100%);
+      color: #e9eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      /* removed padding-bottom as this page is simple */
+    }
+
+    /* Animated floating blobs */
+    .blob{
+      position: absolute;
+      filter: blur(36px) saturate(1.2);
+      opacity: .35;
+      border-radius: 50%;
+      transform: translate3d(0,0,0);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index:0;
+      animation: floatY 10s ease-in-out infinite;
+    }
+    .blob.blob-1{ width:420px; height:420px; left:-80px; top:-80px; background: linear-gradient(135deg,#0d6efd,#7c8cff);}
+    .blob.blob-2{ width:300px; height:300px; right:-60px; top:40px; background: linear-gradient(135deg,#ffb703,#ff7a59); animation-duration:14s;}
+    .blob.blob-3{ width:220px; height:220px; left:20%; bottom:-100px; background: linear-gradient(135deg,#9be7ff,#7cc6ff); animation-duration:12s; opacity:.25;}
+
+    @keyframes floatY{
+      0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+      50%{ transform: translateY(-30px) translateX(8px) rotate(6deg); }
+      100%{ transform: translateY(0px) translateX(0px) rotate(0deg); }
+    }
+
+    /* Nav */
+    .navbar {
+      background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      backdrop-filter: blur(6px);
+      border-radius: 14px;
+      margin: 18px;
+      padding: .45rem 1rem;
+      box-shadow: var(--soft-shadow);
+      z-index: 10;
+    }
+    .navbar-brand { font-weight:700; color:var(--accent); display:flex; gap:.5rem; align-items:center;}
+    .navbar .btn { border-radius: 12px; }
+    .navbar .btn-outline-light { border-color: rgba(255,255,255,0.12); }
+
+    /* Hero/Content wrapper for Z-index */
+    .content-wrapper { 
+      position: relative; 
+      z-index: 5; 
+      /* For login page, use flex to center content vertically */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 72px); /* 100vh minus nav height/margin */
+    }
+    
+    /* Login Specific Styling */
+    .login-card-wrapper {
+        width: 100%;
+        max-width: 420px; /* Max width for the card */
+        padding: 15px;
+    }
+    
+    .login-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: var(--soft-shadow);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(6px);
+      text-align: center;
+    }
+    
+    .login-title { 
+      font-weight: 700; 
+      color: white; 
+      margin-bottom: 1.5rem;
+    }
+
+    /* Override Bootstrap form controls for dark theme */
+    .form-control {
+        background-color: rgba(255,255,255,0.08); /* Darker/glass input background */
+        color: #e9eef8; /* Light text */
+        border: 1px solid var(--glass-border);
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+    
+    .form-control:focus {
+        background-color: rgba(255,255,255,0.15);
+        color: #e9eef8;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    
+    .form-label {
+        font-weight: 500;
+        color: var(--muted);
+    }
+    
+    .btn { border-radius: 12px; padding: .6rem 1.15rem; font-weight:600; }
+    .btn-primary { background: linear-gradient(90deg,var(--accent), #5aa0ff); border: none; }
+    .btn-primary:hover { background: linear-gradient(90deg, #5aa0ff, var(--accent)); }
+
+
+    /* Small helpers */
+    .rounded-icon svg { border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:10px; box-shadow: 0 6px 16px rgba(2,6,23,0.5); }
+    .lead-quiet { color: rgba(233,238,248,0.68); }
+
+
+    /* Responsiveness tweaks */
+    @media (max-width:767px){
+      .navbar { margin: 12px; padding:.5rem; }
+      .content-wrapper { min-height: calc(100vh - 60px); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+  <div class="blob blob-3" aria-hidden="true"></div>
+
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius:8px;">
+          <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 2z" fill="url(#g)"/>
+          <defs>
+            <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#0d6efd"/>
+              <stop offset="1" stop-color="#7c8cff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span style="margin-left:8px;">Cyber Shield</span>
+      </a>
+
+      <div class="d-flex">
+        <a href="signup.html" class="btn btn-outline-light">Sign Up</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="content-wrapper">
+    <div class="container">
+        <div class="login-card-wrapper mx-auto">
+            <div class="login-card text-white">
+                <h2 class="login-title">Log in to Cyber Shield</h2>
+                
+                <form action="/login" method="POST"> 
+                    <div class="mb-3 text-start">
+                        <label for="username" class="form-label">Username or Email</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    
+                    <div class="mb-4 text-start">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg">Log In</button>
+                    </div>
+                    
+                    <small class="lead-quiet">
+                        <a href="forgot-password.html" class="text-decoration-none" style="color: var(--muted);">Forgot Password?</a>
+                    </small>
+                </form>
+
+                <hr style="border-color: rgba(255,255,255,0.08); margin: 1.5rem 0;">
+
+                <p class="lead-quiet mb-0">
+                    Don't have an account? <a href="signup.html" class="text-decoration-none" style="color: var(--accent);">Sign Up</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
