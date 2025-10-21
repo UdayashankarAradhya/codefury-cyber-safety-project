@@ -70,5 +70,5 @@ Animated Blobs: Pure CSS animation (@keyframes floatY) and blurring (filter: blu
 🤝 Contribution
 This project was created as part of the CodeFury 8.0 event. Contributions, suggestions, or bug reports are welcome.
 
-© License
+© License This is my new feature!
 © 2025 Cyber Shield. A CodeFury 8.0 Project. (Please update or add a formal license like MIT if needed.)
