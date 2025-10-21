@@ -55,6 +55,7 @@ Bash
 
 cd codefury-cyber-safety-project
 Open index.html (or login.html) directly in your web browser.
+This line is important!
 
 🎨 Design Notes (For Developers)
 The core aesthetic is controlled by a few key CSS features:
