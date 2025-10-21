@@ -56,6 +56,7 @@ Bash
 cd codefury-cyber-safety-project
 Open index.html (or login.html) directly in your web browser.
 
+
 🎨 Design Notes (For Developers)
 The core aesthetic is controlled by a few key CSS features:
 
@@ -70,5 +71,10 @@ Animated Blobs: Pure CSS animation (@keyframes floatY) and blurring (filter: blu
 🤝 Contribution
 This project was created as part of the CodeFury 8.0 event. Contributions, suggestions, or bug reports are welcome.
 
-© License This is my new feature!
+
+
+© License
+This line is important!
+This is my new feature!
 © 2025 Cyber Shield. A CodeFury 8.0 Project. (Please update or add a formal license like MIT if needed.)
+
